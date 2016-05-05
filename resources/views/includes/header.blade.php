@@ -70,7 +70,9 @@
                                         <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Perfil</a></li>
                                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Configuracion</a></li>
                                        
-                                        <li><a href="javascript:void(0)"><i class="ti-power-off m-r-5"></i>Cerrar Sesion</a></li>
+                                        <li>{!!link_to('/logout', '&nbsp;Cerrar Sesion',array('class'=>'ti-power-off m-r-5')) !!}
+                                        </li>
+
                                     </ul>
                                 </li>
                             </ul>
@@ -90,7 +92,7 @@
                           <li class="text-muted menu-title"></li>
 
                             <li {{{Request::is('dashboard')? 'class=active' :''}}}>
-                                    <a class="" href="{{ url('/dashboard') }}"><i class="fa fa-area-chart"></i> Dashboard</a>
+                                    <a class="" href="{{ url('/menu') }}"><i class="fa fa-area-chart"></i> Dashboard</a>
                             </li>
 
                             <li {{{Request::is('embarques')? 'class=active' :''}}}>

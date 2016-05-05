@@ -62,11 +62,7 @@ Route::resource('ubicacion','ubicacionescontroller');
 Route::get('/ubicaciones','ubicacionescontroller@index');
 Route::get('ubicaciones/ubicacionesdel/{id}','ubicacionescontroller@delete');
 
-
-
-
-
-
+Route::get('/menu','dashboardcontroller@index');
 
 /***************** Rutas para aplicacion movil **************************/
 /////////////LOGIN-ECOPLAST///////////////////
