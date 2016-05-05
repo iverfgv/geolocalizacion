@@ -24,11 +24,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-/////////////EMBARQUES-ECOPLAST///////////////////
-Route::resource('embarques','EmbarqueController');      //index. catalogo
-Route::get('embarques','EmbarqueController@index');   
-
-
 /////////////EMPRESA-ECOPLAST///////////////////
 Route::resource('empresas','EmpresaController');       
 Route::get('empresas','EmpresaController@index'); 
@@ -41,13 +36,16 @@ Route::get('rastreo','RastreoController@index');
 /////////////EMBARQUES-ECOPLAST///////////////////
 Route::resource('embarques','EmbarqueController');    
 Route::get('embarques','EmbarqueController@index');
-Route::get('embarques/embarquedel/{id}','EmbarqueController@delete'); 
+Route::get('embarques/embarquedel/{id}','EmbarqueController@delete');
+Route::put('embarques/embarque/update','EmbarqueController@update');
+
 
 
 /////////////USUARIOS-ECOPLAST///////////////////
 Route::resource('usuario','usuariocontroller');
 Route::get('/usuarios','usuariocontroller@index');
 Route::get('usuarios/usuariodel/{id}','usuariocontroller@delete');
+
 
 
 /////////////PERFIL-ECOPLAST///////////////////

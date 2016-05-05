@@ -53,4 +53,19 @@ class EmbarqueController extends Controller
           Session::flash('message','Embarque Eliminado Correctamente');    
           return redirect('/embarques');
       }
+        public function update(Request $request)
+        {   
+            
+            $id=$request['id'];
+            $Embarque = \App\embarques::find($id);
+            $Embarque->fill($request->all());
+            $Embarque->save();                
+
+
+          
+        return redirect('/embarques');
+       
+    }
+
+
 }
