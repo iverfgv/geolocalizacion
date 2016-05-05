@@ -26,7 +26,6 @@ class logincontroller extends Controller
         if($user!=null){
             Auth::loginUsingId($user->id);
             return redirect('/menu');
-            //return view('dashboard');
         }
 
          return view('login');        

@@ -13,18 +13,12 @@ use Auth;
 use Redirect;
 
 class usuariocontroller extends Controller
-{
-    public function login()
+{    
+    public function __construct()
     {
-         return view('login');
+        $this->middleware('auth');
     }
-
-    public function logout()
-    {
-        Auth::logout();
-        return Redirect::to('/');
-    }
-
+   
     public function store(Request $request){
      	$activo=0;
 

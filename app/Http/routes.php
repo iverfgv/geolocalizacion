@@ -18,14 +18,10 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, *');
 
 
 
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-});*/
 
 /////////////EMBARQUES-ECOPLAST///////////////////
 Route::resource('embarques','EmbarqueController');      //index. catalogo
 Route::get('embarques','EmbarqueController@index');   
-
 
 /////////////EMPRESA-ECOPLAST///////////////////
 Route::resource('empresas','EmpresaController');       
@@ -46,8 +42,9 @@ Route::get('embarques/embarquedel/{id}','EmbarqueController@delete');
 Route::resource('usuario','usuariocontroller');
 Route::get('/usuarios','usuariocontroller@index');
 Route::get('usuarios/usuariodel/{id}','usuariocontroller@delete');
-Route::get('/','usuariocontroller@login');
-Route::get('/logout','usuariocontroller@logout');
+
+Route::get('/','sesioncontroller@login');
+Route::get('/logout','sesioncontroller@logout');
 
 
 
@@ -63,6 +60,7 @@ Route::get('/ubicaciones','ubicacionescontroller@index');
 Route::get('ubicaciones/ubicacionesdel/{id}','ubicacionescontroller@delete');
 
 Route::get('/menu','dashboardcontroller@index');
+
 
 /***************** Rutas para aplicacion movil **************************/
 /////////////LOGIN-ECOPLAST///////////////////
