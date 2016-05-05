@@ -51,8 +51,9 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-xs-12">
-            {!!Form::password('contrasena','',['class'=>'form-control form-white','placeholder'=>'Contraseña'])!!}
+                    <div class="col-xs-12"><br>
+                    <input type="password" name = "contrasena" class="form-control form-white" id="pwd">
+            
                     </div>
                 </div>
 

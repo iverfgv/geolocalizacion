@@ -14,7 +14,7 @@ use Hash;
 class logincontroller extends Controller
 {	
     public function store(Request $request)
-    {
+    { 
         $nusuario=$request['usuario'];
         $contrasena=md5($request['contrasena']); 
 
