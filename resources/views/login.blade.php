@@ -42,17 +42,17 @@
 
 
             <div class="panel-body">
-            <form class="form-horizontal m-t-20" action="{{ url('/dashboard') }}">
-                
+            <!--<form class="form-horizontal m-t-20" action="{{ url('/dashboard') }}">-->
+            {!!Form::open(['route'=>'dashboard.store','method','POST'])!!}
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" required="" placeholder="Usuario">
+            {!!Form::text('usuario','',['class'=>'form-control form-white','placeholder'=>'Usuario'])!!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control" type="password" required="" placeholder="Contraseña">
+            {!!Form::password('contrasena','',['class'=>'form-control form-white','placeholder'=>'Contraseña'])!!}
                     </div>
                 </div>
 
@@ -70,12 +70,13 @@
                 
                 <div class="form-group text-center m-t-40">
                     <div class="col-xs-12">
-                        <button class="btn btn-green btn-block text-uppercase waves-effect waves-light" type="submit">Iniciar sesion</button>
+                    <!--    <button class="btn btn-green btn-block text-uppercase waves-effect waves-light" type="submit">Iniciar sesion</button>-->
+                    {!!Form::submit('Iniciar sesion',['class'=>'btn btn-green btn-block text-uppercase  waves-light'])!!}
                     </div>
                 </div>
 
-                
-            </form> 
+            {!!Form::close()!!}    
+            <!--</form>-->
             
             </div>   
             </div>                              

@@ -9,10 +9,22 @@ use Session;
 use App\User;
 use App\perfiles;
 use App\ubicaciones;
-
+use Auth;
+use Redirect;
 class usuariocontroller extends Controller
 {
-     public function store(Request $request){
+    public function login()
+    {
+         return view('login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::to('/');
+    }
+
+    public function store(Request $request){
      	$activo=0;
 
      	$contrasena=md5($request['contrasena']);		
@@ -60,4 +72,6 @@ class usuariocontroller extends Controller
     	
     	return redirect('/usuarios');
       }
+
+
 }

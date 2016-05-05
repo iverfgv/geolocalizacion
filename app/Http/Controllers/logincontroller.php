@@ -13,6 +13,29 @@ use Hash;
 
 class logincontroller extends Controller
 {	
+    public function store(Request $request)
+    {
+        $nusuario=$request['usuario'];
+        $contrasena=md5($request['contrasena']); 
+
+        $user = DB::table('usuarios')
+        ->select('usuarios.*')    
+        ->whereusuario($nusuario)->wherecontrasena($contrasena)->first();
+
+       
+        if($user!=null){
+            Auth::loginUsingId($user->id);
+            return view('dashboard');
+        }
+
+         return view('login');        
+    }
+
+    public function index()
+    {
+        return view('login');
+    }
+
     public function login(Request $request)
     {       
         /*User::create([

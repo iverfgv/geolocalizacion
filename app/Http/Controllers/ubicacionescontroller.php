@@ -10,6 +10,11 @@ use Session;
 
 class ubicacionescontroller extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
 	public function store(Request $request){
 		$activo=0;
 		if($request['activo']=="si")

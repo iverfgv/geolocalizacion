@@ -7,9 +7,15 @@ use App\Http\Requests;
 use DB;
 use App;
 use Session;
+use Auth;
 
 class EmbarqueController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
     public function index(){
     	 $embarques = DB::table('embarques')
         ->join('materiales', 'materiales.id', '=', 'embarques.materiales_id')
