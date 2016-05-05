@@ -58,10 +58,10 @@ class perfilcontroller extends Controller
 	            		'activo'=>$activo
 	            	]);
 
-	   $perfiles=DB::table('perfiles')
+	    $perfiles=DB::table('perfiles')
     				 	 ->select('perfiles.*')->get();
-
-	   return view('perfiles',compact('perfiles'));
+    	Session::flash('message','Perfil Agregado Correctamente');  
+	    return view('perfiles',compact('perfiles'));
     }
 
     public function index(){

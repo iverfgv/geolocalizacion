@@ -37,7 +37,9 @@ class usuariocontroller extends Controller
             ->select('usuarios.*','perfiles.perfil','ubicaciones.ubicacion')
             ->get();
 
-	   return view('usuarios',compact('usuarios'));
+        Session::flash('message','Usuario Agregado Correctamente');  
+
+	    return view('usuarios',compact('usuarios'));
     }
 
     public function index(){
@@ -53,8 +55,9 @@ class usuariocontroller extends Controller
      public function delete($id)
      { 
         User::destroy($id);
-        Session::flash('message','usuario Eliminado Correctamente');  
+
+        Session::flash('message','Usuario Eliminado Correctamente');  
     	
-    	return redirect('/perfiles');
+    	return redirect('/usuarios');
       }
 }

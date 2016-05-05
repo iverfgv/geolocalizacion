@@ -24,10 +24,12 @@ class ubicacionescontroller extends Controller
 	            		'activo'=>$activo
 	            	]);
 
-	   $ubicaciones=DB::table('ubicaciones')
+	    $ubicaciones=DB::table('ubicaciones')
     				 	 ->select('ubicaciones.*')->get();
 
-	   return view('ubicaciones',compact('ubicaciones'));
+    	Session::flash('message','Ubicacion Agregado Correctamente'); 
+
+	    return view('ubicaciones',compact('ubicaciones'));
     }
 
     public function index(){
@@ -40,7 +42,7 @@ class ubicacionescontroller extends Controller
      public function delete($id)
      { 
         ubicaciones::destroy($id);
-  		Session::flash('message','Embarque Eliminado Correctamente');    
+  		Session::flash('message','Ubicacion Eliminado Correctamente');    
     	
     	return redirect('/ubicaciones');
       }
