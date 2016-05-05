@@ -535,7 +535,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         $this->clearUserDataFromStorage();
 
         if (! is_null($this->user)) {
-            $this->refreshRememberToken($user);
+            //$this->refreshRememberToken($user);
         }
 
         if (isset($this->events)) {

@@ -21,7 +21,7 @@ class sincronizarcontroller extends Controller
     
      public function registrar(Request $request){
 
-   $idTransaccion=0;
+   		$idTransaccion=0;
     	$code="999";
     	$status="ERROR";
     	$message="Registro no guardado";

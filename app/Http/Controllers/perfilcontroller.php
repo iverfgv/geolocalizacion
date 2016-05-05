@@ -10,6 +10,11 @@ use DB;
 
 class perfilcontroller extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function store(Request $request){
     	$pesaje=0;
     	$supervisor=0;

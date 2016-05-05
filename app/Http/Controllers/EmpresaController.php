@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
 use App;
-
+use Auth;
 
 class EmpresaController extends Controller
 {  
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
     public function index()
     {
     	$tipoempre = \App\tipoempresas::All();
