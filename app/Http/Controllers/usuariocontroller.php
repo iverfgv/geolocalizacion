@@ -11,6 +11,7 @@ use App\perfiles;
 use App\ubicaciones;
 use Auth;
 use Redirect;
+
 class usuariocontroller extends Controller
 {
     public function login()
