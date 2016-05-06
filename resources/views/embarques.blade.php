@@ -60,7 +60,7 @@
                                     <?php $fecha = substr($emb->fecha,0,10);
                                             $i=0;
                                      ?>
-                                        <tr id={{ $emb->id }} data-fecha={{ $fecha }} data-peso={{ $emb->peso }} data-material={{ $emb->material }} data-usuari={{ $emb->usuari }} data-ubica={{ $emb->ubica }} data-cancelado={{ $emb->cancelado }} data-codigo={{ $emb->codigocontrol }} >
+                                        <tr id={{ $emb->id }} data-fecha={{ $fecha }} data-peso={{ $emb->peso }} data-material={{ $emb->materiales_id }} data-usuari={{ $emb->usuarios_id }} data-ubica={{ $emb->ubicaciones_id }} data-cancelado={{ $emb->cancelado }} data-codigo={{ $emb->codigocontrol }} >
 
                                             <td> {{ $emb->id }}</td>
                                             <td> {{ $fecha }}</td>
@@ -105,21 +105,21 @@
                 <form role="form">
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">ID</label>
-                            {!!Form::text('id','',['class'=>'form-control form-white'])!!}
+                            {!!Form::text('id','',['class'=>'form-control form-white', 'disabled'])!!}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Fecha</label>
                              {!!Form::date('fecha','',['class'=>'form-control form-white'])!!}
                         </div>
 
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <label class="control-label">Peso</label>
                            {!!Form::text('peso','',['class'=>'form-control form-white'])!!}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                             <label class="control-label">Cancelado</label>
                             {!!Form::select('cancelado',array('1' => 'Si', '0' => 'No'),null,['class'=>'form-control form-white'] )!!}
                         </div>
@@ -173,8 +173,8 @@
 
                         <div class="col-md-6">
                             <label class="control-label">ID</label>
-                            {!!Form::text('id','',[ 'id'=>'idtag','class'=>'form-control form-white'])!!}
-                            
+                            {!!Form::text('id','',[ 'id'=>'idtag','class'=>'form-control form-white', 'disabled'])!!}
+                             <input type="hidden" name="id" id="idtag2">
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Fecha</label>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="col-md-4">
                             <label class="control-label">Cancelado</label>
-                            {!!Form::select('cancelado',array('1' => 'Si', '0' => 'No'),'',['class'=>'form-control form-white'] )!!}
+                            {!!Form::select('cancelado',array('1' => 'Si', '0' => 'No'),'',['id'=>'canceladotag','class'=>'form-control form-white'] )!!}
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Codigo de control</label>
@@ -197,17 +197,17 @@
 
                         <div class="col-md-12">
                             <label class="control-label">Material</label>
-                           {!!Form::select('materiales_id', \App\materiales::lists('material','id'),'',['class'=>'form-control form-white'] )!!}
+                           {!!Form::select('materiales_id', \App\materiales::lists('material','id'),'',['id'=>'materialtag','class'=>'form-control form-white'] )!!}
                         </div>
 
                         <div class="col-md-12">
                             <label class="control-label">Usuario</label>
-                            {!!Form::select('usuarios_id', \App\usuarios::lists('usuario','id'),'',['class'=>'form-control form-white'] )!!}
+                            {!!Form::select('usuarios_id', \App\usuarios::lists('usuario','id'),'',['id'=>'usuariotag','class'=>'form-control form-white'] )!!}
                         </div>
 
                         <div class="col-md-12">
                             <label class="control-label">Ubicacion</label>
-                           {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),'',['class'=>'form-control form-white'] )!!}
+                           {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),'',['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
                         </div>
 
                     </div>
@@ -235,9 +235,10 @@
                 var material=$(this).attr('data-material');
                 var usuario=$(this).attr('data-usuari');
                 var ubica=$(this).attr('data-ubica');
-                var cancelado=$(this).attr(' data-cancelado');
+                var cancelado=$(this).attr('data-cancelado');
                 var codigo=$(this).attr('data-codigo');
                 $('#idtag').val(ID);
+                $('#idtag2').val(ID);
                 $('#fechatag').val(fecha);
                 $('#pesotag').val(peso);
                 $('#materialtag').val(material);
@@ -245,6 +246,7 @@
                 $('#ubicatag').val(ubica);
                 $('#canceladotag').val(cancelado);
                 $('#codigotag').val(codigo);
+                console.log(cancelado);
         });
 
             

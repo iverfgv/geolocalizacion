@@ -4,7 +4,7 @@
 <!-- <footer class="footer text-right"> </footer> -->
 </div> <!-- End wrapper -->
         <script>
-            var resizefunc = [];
+            ar resizefunc = [];
         </script>
 
         <!-- jQuery  -->
