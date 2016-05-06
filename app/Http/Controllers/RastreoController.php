@@ -17,10 +17,10 @@ class RastreoController extends Controller
     public function index()
     {
              
-		  $flag=1;
-    	$rastreo = DB::table('rastreos')
-          ->select('rastreos.*')
-          ->paginate(20);
+		        $flag=1;
+    	      $rastreo = DB::table('rastreos')
+              ->select('rastreos.*')
+              ->paginate(20);
       	return view('/rastreo',['rastreos'=>$rastreo]);
     }
 
@@ -42,8 +42,18 @@ class RastreoController extends Controller
        public function delete($id)
     {
            \App\rastreo::destroy($id);
-          Session::flash('message','Rastreo Eliminado Correctamente');    
-          return redirect('/rastreo');
+        Session::flash('message','Rastreo Eliminado Correctamente');    
+        return redirect('/rastreo');
+    }
+
+    public function update(Request $request)
+    {   
+            $id=$request['id'];
+            $Rastreo = \App\rastreo::find($id);
+            $Rastreo->fill($request->all());
+            $Rastreo->save();                
+        Session::flash('message','Rastreo Actualizado Correctamente');     
+        return redirect('/rastreo');
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\RequestEmbarques;
 use DB;
 use App;
 use Session;
@@ -30,17 +31,15 @@ class EmbarqueController extends Controller
 
      public function store(Request $request)
      {   
-        $hoy = getdate(); 
-        $d = $hoy['mday'];
-        $m = $hoy['mon'];
-        $y = $hoy['year'];
-        $fechahoy= ($y.'/'.$m.'/'.$d);
+       
+         $fechasistema = date('Y-m-d');
+       
         \App\embarques::create([
                'usuarios_id'=>$request['usuario'],
                'materiales_id'=>$request['material'],
                'ubicaciones_id'=>$request['ubicacion'],
                'peso'=>$request['peso'],
-               'fecha'=>$fechahoy,
+               'fecha'=>$fechasistema,
                'fechalocal'=>$request['fecha'],
                'codigocontrol'=>$request['codigo'],
                'cancelado'=>$request['cancelado'],

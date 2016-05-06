@@ -66,7 +66,7 @@ class dashboardcontroller extends Controller
             {
                 fillColor : "#5fbeaa", 
                 strokeColor : "rgba(220,220,220,0.8)",
-                highlightFill: "rgba(220,220,220,0.75)",
+                highlightFill: "#389C87",
                 highlightStroke: "rgba(220,220,220,1)",';
 
         $dataclientes .= $etiquetasvertical;  

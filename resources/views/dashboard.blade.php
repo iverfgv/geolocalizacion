@@ -22,9 +22,9 @@
 
 	<style>
     #canvas-holder {
-        width: 100%;
+        width: 30%;
         margin-top: 50px;
-        text-align: center;
+        text-align: left;
     }
     #chartjs-tooltip {
         opacity: 1;
@@ -60,7 +60,7 @@
     #chartjs-tooltip.above {
         
     }
-    /*  < de letrero
+    
     #chartjs-tooltip.above:before {
         border: solid;
         border-color: #111 transparent;
@@ -75,7 +75,7 @@
         z-index: 99;
         -webkit-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
-    }*/
+    }
     </style>
 
 <script>
@@ -131,9 +131,6 @@
 
 	var barChartData =<?php echo $dataclientes?>
 	
-
-
-
     window.onload = function() {
     	var ctx = document.getElementById("canvas-barras").getContext("2d");
     	var ctx1 = document.getElementById("chart-area1").getContext("2d");
@@ -144,8 +141,12 @@
 		});
 
         
-        window.myPie = new Chart(ctx1).Pie(pieData);
-        window.myPie = new Chart(ctx2).Pie(pieData);
+        window.myPie = new Chart(ctx1).Pie(pieData, {
+			responsive : true
+		});
+        window.myPie = new Chart(ctx2).Pie(pieData, {
+			responsive : true
+		});
     };
     </script>
 
@@ -167,57 +168,23 @@
 							</div>             
                         </div>
 
-						<div class="row">	
-							<!--<div class="col-md-6">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<i class="fa fa-bar-chart-o fa-fw"></i>Materiales
-									</div>
-									<div id="canvas-holder">
-									    <canvas id="chart-area2" width="250" height="250" />
-									</div>	
-								    <div id="chartjs-tooltip"></div>						 		
-								</div>
-							</div>-->
+						<div class="row">												
 
-							<div class="col-lg-6">
-								<div class="card-box">
-									<h4 class="m-t-0 header-title"><b>Clientes</b></h4>
-									<p class="text-muted m-b-30 font-13">
-										
-									</p>
-									
-									<div id="distributed-series" class="ct-chart ct-golden-section"></div>
-								</div>
-							</div>
+						 	<!-- grafica de pastel -->
+							 	<div id="canvas-holder">
+							        <canvas id="chart-area1" width="0" height="0" />
+							    </div>
+							    <div id="canvas-holder">
+							        <canvas id="chart-area2" width="300" height="300" />
+							    </div>
+							    <div id="chartjs-tooltip"></div>
+						    <!-- ****************** -->
 
-						<!-- grafica de barras -->
-							<div style="width: 50%">
+						    <!-- grafica de barras -->
+							<div style="width: 40%">
 								<canvas id="canvas-barras" height="450" width="600"></canvas>
-							</div>
+							</div>							
 						<!-- ****************** -->
-
- 	<!-- grafica de pastel -->
-	 	<div id="canvas-holder">
-	        <canvas id="chart-area1" width="0" height="0" />
-	    </div>
-	    <div id="canvas-holder">
-	        <canvas id="chart-area2" width="300" height="300" />
-	    </div>
-	    <div id="chartjs-tooltip"></div>
-    <!-- ****************** -->
-
-						<!--
-							<div class="col-lg-6">
-								<div class="card-box">
-									<div style="width: 50%">
-											<canvas id="canvas" height="450" width="600"></canvas>
-										</div>
-									
-									<div id="distributed-series" class="ct-chart ct-golden-section"></div>
-								</div>
-							</div>-->
-
 
 							
 

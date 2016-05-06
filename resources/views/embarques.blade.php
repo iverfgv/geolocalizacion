@@ -1,4 +1,5 @@
 @include('includes.header')
+<?php $date = date('Y-m-d'); ?>
 
 
 <div class="content-page">
@@ -57,10 +58,10 @@
 
                                     <tbody>
                                     @foreach($embarques as $emb)
-                                    <?php $fecha = substr($emb->fecha,0,10);
+                                    <?php $fecha = substr($emb->fechalocal,0,10);
                                             $i=0;
                                      ?>
-                                        <tr id={{ $emb->id }} data-fecha={{ $fecha }} data-peso={{ $emb->peso }} data-material={{ $emb->materiales_id }} data-usuari={{ $emb->usuarios_id }} data-ubica={{ $emb->ubicaciones_id }} data-cancelado={{ $emb->cancelado }} data-codigo={{ $emb->codigocontrol }} >
+                                        <tr id='{{ $emb->id }}' data-fecha='{{ $fecha }}' data-peso='{{ $emb->peso }}' data-material='{{ $emb->materiales_id }}' data-usuari='{{ $emb->usuarios_id }}' data-ubica='{{ $emb->ubicaciones_id }}' data-cancelado='{{ $emb->cancelado }}' data-codigo='{{ $emb->codigocontrol }}' >
 
                                             <td> {{ $emb->id }}</td>
                                             <td> {{ $fecha }}</td>
@@ -111,13 +112,13 @@
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Fecha</label>
-                             {!!Form::date('fecha','',['class'=>'form-control form-white'])!!}
+                             {!!Form::date('fecha',$date,['class'=>'form-control form-white','required'])!!}
                         </div>
 
 
                         <div class="col-md-8">
                             <label class="control-label">Peso</label>
-                           {!!Form::text('peso','',['class'=>'form-control form-white'])!!}
+                           {!!Form::text('peso','',['class'=>'form-control form-white','required'])!!}
                         </div>
                         <div class="col-md-4">
                             <label class="control-label">Cancelado</label>
@@ -125,7 +126,7 @@
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Codigo de control</label>
-                           {!!Form::text('codigo','',['class'=>'form-control form-white'])!!}
+                           {!!Form::text('codigo','',['class'=>'form-control form-white','required'])!!}
                         </div>
 
                         <div class="col-md-12">
@@ -157,6 +158,7 @@
 </div>
 {!!Form::close()!!} 
 <!-- /Modal alta -->
+
 <?php $id=1;?>
 <!-- Modal editar -->
 {!!Form::open(['route'=>['embarques.update',$id],'method'=>'PUT'])!!}
@@ -184,7 +186,7 @@
 
                         <div class="col-md-8">
                             <label class="control-label">Peso</label>
-                           {!!Form::text('peso','',['id'=>'pesotag','class'=>'form-control form-white'])!!}
+                           {!!Form::text('peso','',['id'=>'pesotag','class'=>'form-control form-white','required'])!!}
                         </div>
                         <div class="col-md-4">
                             <label class="control-label">Cancelado</label>
@@ -192,7 +194,7 @@
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Codigo de control</label>
-                           {!!Form::text('codigocontrol','',['id'=>'codigotag','class'=>'form-control form-white'])!!}
+                           {!!Form::text('codigocontrol','',['id'=>'codigotag','class'=>'form-control form-white','required'])!!}
                         </div>
 
                         <div class="col-md-12">
@@ -246,8 +248,6 @@
                 $('#ubicatag').val(ubica);
                 $('#canceladotag').val(cancelado);
                 $('#codigotag').val(codigo);
-                console.log(cancelado);
+               
         });
-
-            
 </script>
