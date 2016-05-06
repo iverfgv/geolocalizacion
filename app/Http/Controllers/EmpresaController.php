@@ -54,11 +54,8 @@ class EmpresaController extends Controller
     }
 
     public function delete($id)
-    {
-          $empresa = \App\empresas::find($id);
-          $empresa->active=0;
-          $empresa->save();
-          Session::flash('message','empresa Eliminado Correctamente');    
+    { \App\empresas::destroy($id);
+          Session::flash('message','Empresa Eliminado Correctamente');    
           return redirect('/empresas');
     }
 }

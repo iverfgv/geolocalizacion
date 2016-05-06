@@ -5,16 +5,18 @@
     <!-- Start content -->
     <div class="content">
         <div class="container">
-
-
-
-
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
 
                         <!-- Page-Title -->
                         <div class="row">
+                         @if(Session::has('message'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                          {{Session::get('message')}}
+                        </div>
+                        @endif
                             <div class="col-sm-12">
                                 <h4 class="page-title">Dashboard </h4>
                                 <ol class="breadcrumb">
@@ -70,8 +72,7 @@
                                                 <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
                                                 </i>
                                                 </span> 
-
-                                                <i class="fa fa-ban" title="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></i>
+                                                {!!link_to('empresas/empresadel/'.$emp->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
                                             </td>
                                         </tr>
                                        

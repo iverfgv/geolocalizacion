@@ -22,11 +22,14 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, *');
 /////////////EMPRESA-ECOPLAST///////////////////
 Route::resource('empresas','EmpresaController');       
 Route::get('empresas','EmpresaController@index'); 
-
+Route::get('empresas/empresadel/{id}','EmpresaController@delete');
 
 /////////////RASTREOS-ECOPLAST///////////////////
 //Route::resource('rastreo','EmpresaController');       
+Route::resource('rastreo','RastreoController');       
 Route::get('rastreo','RastreoController@index');  
+Route::get('rastreo/rastreodel/{id}','RastreoController@delete');
+
 
 /////////////EMBARQUES-ECOPLAST///////////////////
 Route::resource('embarques','EmbarqueController');    
