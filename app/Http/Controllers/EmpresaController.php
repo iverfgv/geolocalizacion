@@ -21,7 +21,7 @@ class EmpresaController extends Controller
         		$flag=1;
           	$empresa = DB::table('empresas')
           	  ->join('tiposempresas', 'tiposempresas.id', '=', 'empresas.tiposempresas_id')
-          	  ->join('ubicacionesempresas', 'ubicacionesempresas.empresas_id', '=', 'empresas.id')
+          	  ->leftjoin('ubicacionesempresas', 'ubicacionesempresas.empresas_id', '=', 'empresas.id')
               ->select('empresas.*', 'tiposempresas.tipoempresa as tipempresa','ubicacionesempresas.ubicaciones_id as ubi')
               ->where('tiposempresas.activo','=', $flag)            
               ->paginate(20);
@@ -42,10 +42,7 @@ class EmpresaController extends Controller
               ->select('empresas.id')
               ->where('empresas.empresa','=',$idempre)->first();
                   
-            \App\ubicacionempresa::create([
-                  'ubicaciones_id'=>$request['ubicacion'],
-                  'empresas_id'=>$empresaid->id,
-              ]);
+    
             return redirect('/empresas');
   }
 
@@ -70,10 +67,6 @@ class EmpresaController extends Controller
               ->where('empresas_id','=',$idubicaciones)->first();
               
 
-            $ubiempre = \App\ubicacionempresa::find($idempresa->id);
-            
-            $ubiempre->ubicaciones_id=$request['ubicaciones_id'];
-            $ubiempre->save();
                             
             Session::flash('message','Empresa Actualizado Correctamente');     
             return redirect('/empresas');

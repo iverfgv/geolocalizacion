@@ -1,5 +1,5 @@
 @include('includes.header')
-
+<?php $date = date('Y-m-d'); ?>
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
@@ -59,7 +59,7 @@
                                         if($rastreo->entrada==0){
                                             $movi='Salida';
                                             }?>
-                                           <tr id={{ $rastreo->id }} data-fecha={{ $fecha }} data-placas={{ $rastreo->placas }} data-embarque={{ $rastreo->embarques_id }} data-usuari={{ $rastreo->usuario_id }} data-ubica={{ $rastreo->ubicaciones_id }} data-entrada={{ $rastreo->entrada }}>
+                                           <tr id='{{ $rastreo->id }}' data-fecha='{{ $fecha }}' data-placas='{{ $rastreo->placas }}' data-embarque='{{ $rastreo->embarques_id }}' data-usuari='{{ $rastreo->usuario_id }}' data-ubica='{{ $rastreo->ubicaciones_id }}' data-entrada='{{ $rastreo->entrada }}'>
 
                                             <td>{{ $rastreo->id }}</td>
                                             <td>{{ $fecha }}</td>
@@ -106,27 +106,27 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Fecha</label>
-                           {!!Form::date('fecha','',['class'=>'form-control form-white'])!!}
+                           {!!Form::date('fecha',$date,['class'=>'form-control form-white','required'])!!}
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Embarque</label>
-                             {!!Form::select('embarques', \App\embarques::lists('codigocontrol','id'),null,['class'=>'form-control form-white'] )!!}
+                             {!!Form::select('embarques', \App\embarques::lists('codigocontrol','id'),null,['class'=>'form-control form-white','required'] )!!}
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Movimiento</label>
-                            {!!Form::select('entrada',array('1' => 'Entrada', '0' => 'Salida'),null,['class'=>'form-control form-white'] )!!}
+                            {!!Form::select('entrada',array('1' => 'Entrada', '0' => 'Salida'),null,['class'=>'form-control form-white','required'] )!!}
                         </div>
                          <div class="col-md-6">
                             <label class="control-label">Usuario</label>
-                            {!!Form::select('usuarios', \App\usuarios::lists('usuario','id'),null,['class'=>'form-control form-white'] )!!}
+                            {!!Form::select('usuarios', \App\usuarios::lists('usuario','id'),null,['class'=>'form-control form-white','required'] )!!}
                         </div>
                          <div class="col-md-5">
                             <label class="control-label">Ubicacion</label>
-                            {!!Form::select('ubicacion', \App\ubicaciones::lists('ubicacion','id'),null,['class'=>'form-control form-white'] )!!}
+                            {!!Form::select('ubicacion', \App\ubicaciones::lists('ubicacion','id'),null,['class'=>'form-control form-white','required'] )!!}
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Placas</label>
-                           {!!Form::text('placas','',['class'=>'form-control form-white'])!!}
+                           {!!Form::text('placas','',['class'=>'form-control form-white','required'])!!}
                         </div>
                     </div>
                 </form>
@@ -140,11 +140,6 @@
 </div>
 {!!Form::close()!!} 
 <!-- /Modal Alta -->
-
-
-
-
-
 
 <?php $id=1;?>
 <!-- Modal editar -->
@@ -167,28 +162,28 @@
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Fecha</label>
-                           {!!Form::date('fecha','',['id'=>'fechatag','class'=>'form-control form-white'])!!}
+                           {!!Form::date('fecha','',['id'=>'fechatag','class'=>'form-control form-white','required'])!!}
                           
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Embarque</label>
-                             {!!Form::select('embarques', \App\embarques::lists('codigocontrol','id'),null,['id'=>'embarquetag','class'=>'form-control form-white'] )!!}
+                             {!!Form::select('embarques', \App\embarques::lists('codigocontrol','id'),null,['id'=>'embarquetag','class'=>'form-control form-white','required'] )!!}
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Movimiento</label>
-                            {!!Form::select('entrada',array('1' => 'Entrada', '0' => 'Salida'),null,['id'=>'entradatag','class'=>'form-control form-white'] )!!}
+                            {!!Form::select('entrada',array('1' => 'Entrada', '0' => 'Salida'),null,['id'=>'entradatag','class'=>'form-control form-white','required'] )!!}
                         </div>
                          <div class="col-md-6">
                             <label class="control-label">Usuario</label>
-                            {!!Form::select('usuario_id', \App\usuarios::lists('usuario','id'),null,['id'=>'usuariotag','class'=>'form-control form-white'] )!!}
+                            {!!Form::select('usuario_id', \App\usuarios::lists('usuario','id'),null,['id'=>'usuariotag','class'=>'form-control form-white','required'] )!!}
                         </div>
                          <div class="col-md-5">
                             <label class="control-label">Ubicacion</label>
-                            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),null,['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
+                            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),null,['id'=>'ubicatag','class'=>'form-control form-white','required'] )!!}
                         </div>
                         <div class="col-md-12">
                             <label class="control-label">Placas</label>
-                           {!!Form::text('placas','',['id'=>'placastag','class'=>'form-control form-white'])!!}
+                           {!!Form::text('placas','',['id'=>'placastag','class'=>'form-control form-white','required'])!!}
                         </div>
                     </div>
                 </form>
@@ -202,7 +197,9 @@
         </div>
     </div>
 </div>
+{!!Form::close()!!} 
 <!-- /Modal Editar -->
+
 
 
 @include('includes.footer')
