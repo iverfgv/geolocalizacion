@@ -29,7 +29,7 @@
     #chartjs-tooltip {
         opacity: 1;
         position: absolute;
-        background: rgba(0, 0, 0, .7);
+       /*background: rgba(0, 0, 0, .7);*/
         color: white;
         padding: 3px;
         border-radius: 3px;
@@ -58,9 +58,9 @@
         transform: translate(-50%, -100%);
     }
     #chartjs-tooltip.above {
-        -webkit-transform: translate(-50%, -100%);
-        transform: translate(-50%, -100%);
+        
     }
+    /*  < de letrero
     #chartjs-tooltip.above:before {
         border: solid;
         border-color: #111 transparent;
@@ -75,7 +75,7 @@
         z-index: 99;
         -webkit-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
-    }
+    }*/
     </style>
 
 <script>
@@ -120,11 +120,31 @@
 
     var pieData = <?php echo $datos?>;
 
-    window.onload = function() {
-        var ctx1 = document.getElementById("chart-area1").getContext("2d");
-        window.myPie = new Chart(ctx1).Pie(pieData);
 
-        var ctx2 = document.getElementById("chart-area2").getContext("2d");
+
+
+
+
+
+   /************************ grafica de barras *************************************/
+   var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+	var barChartData =<?php echo $dataclientes?>
+	
+
+
+
+    window.onload = function() {
+    	var ctx = document.getElementById("canvas-barras").getContext("2d");
+    	var ctx1 = document.getElementById("chart-area1").getContext("2d");
+    	var ctx2 = document.getElementById("chart-area2").getContext("2d");
+		
+		window.myBar = new Chart(ctx).Bar(barChartData, {
+			responsive : true
+		});
+
+        
+        window.myPie = new Chart(ctx1).Pie(pieData);
         window.myPie = new Chart(ctx2).Pie(pieData);
     };
     </script>
@@ -164,12 +184,18 @@
 								<div class="card-box">
 									<h4 class="m-t-0 header-title"><b>Clientes</b></h4>
 									<p class="text-muted m-b-30 font-13">
-										Example of Horizontal bar chart.
+										
 									</p>
 									
 									<div id="distributed-series" class="ct-chart ct-golden-section"></div>
 								</div>
 							</div>
+
+						<!-- grafica de barras -->
+							<div style="width: 50%">
+								<canvas id="canvas-barras" height="450" width="600"></canvas>
+							</div>
+						<!-- ****************** -->
 
  	<!-- grafica de pastel -->
 	 	<div id="canvas-holder">
