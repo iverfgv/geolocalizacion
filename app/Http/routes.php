@@ -35,7 +35,6 @@ Route::get('rastreo/rastreodel/{id}','RastreoController@delete');
 Route::resource('embarques','EmbarqueController');    
 Route::get('embarques','EmbarqueController@index');
 Route::get('embarques/embarquedel/{id}','EmbarqueController@delete');
-Route::put('embarques/embarque/update','EmbarqueController@update');
 
 
 
