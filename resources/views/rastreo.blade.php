@@ -47,6 +47,7 @@
                                         </tr>
                                     </thead>
 
+                                    <tbody>
                                     @foreach($rastreos as $rastreo)
                                       <?php
                                         $fecha = substr($rastreo->fecha,0,10);
@@ -58,8 +59,8 @@
                                         if($rastreo->entrada==0){
                                             $movi='Salida';
                                             }?>
-                                    <tbody>
-                                        <tr>
+                                           <tr id={{ $rastreo->id }} data-fecha={{ $fecha }} data-placas={{ $rastreo->placas }} data-embarque={{ $rastreo->embarques_id }} data-usuari={{ $rastreo->usuario_id }} data-ubica={{ $rastreo->ubicaciones_id }} data-entrada={{ $rastreo->entrada }}>
+
                                             <td>{{ $rastreo->id }}</td>
                                             <td>{{ $fecha }}</td>
                                             <td>{{ $movi }}</td>
@@ -76,8 +77,8 @@
                                                {!!link_to('rastreo/rastreodel/'.$rastreo->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
                                             </td>
                                         </tr>
-                                    </tbody>
                                     @endforeach
+                                    </tbody>
                                 </table>
 
                             </div>
@@ -145,8 +146,9 @@
 
 
 
-
-<!-- Modal Editar -->
+<?php $id=1;?>
+<!-- Modal editar -->
+{!!Form::open(['route'=>['rastreo.update',$id],'method'=>'PUT'])!!}
 <div class="modal fade none-border" id="edit-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
@@ -156,36 +158,38 @@
             </div>
             <div class="modal-body">
                 <form role="form">
+                    <form role="form">
                     <div class="row">
-
-                        <div class="col-md-12">
+                    <div class="col-md-6">
                             <label class="control-label">ID</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                            {!!Form::text('id','',[ 'id'=>'idtag','class'=>'form-control form-white', 'disabled'])!!}
+                             <input type="hidden" name="id" id="idtag2">
                         </div>
-
-
-
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Fecha</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                           {!!Form::date('fecha','',['id'=>'fechatag','class'=>'form-control form-white'])!!}
+                          
                         </div>
-
                         <div class="col-md-12">
-                            <label class="control-label">Movimiento</label>
-                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Entrada</option>
-                                <option value="danger">Salida</option>
-
-                            </select>
+                            <label class="control-label">Embarque</label>
+                             {!!Form::select('embarques', \App\embarques::lists('codigocontrol','id'),null,['id'=>'embarquetag','class'=>'form-control form-white'] )!!}
                         </div>
-
+                        <div class="col-md-6">
+                            <label class="control-label">Movimiento</label>
+                            {!!Form::select('entrada',array('1' => 'Entrada', '0' => 'Salida'),null,['id'=>'entradatag','class'=>'form-control form-white'] )!!}
+                        </div>
+                         <div class="col-md-6">
+                            <label class="control-label">Usuario</label>
+                            {!!Form::select('usuario_id', \App\usuarios::lists('usuario','id'),null,['id'=>'usuariotag','class'=>'form-control form-white'] )!!}
+                        </div>
+                         <div class="col-md-5">
+                            <label class="control-label">Ubicacion</label>
+                            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),null,['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
+                        </div>
                         <div class="col-md-12">
                             <label class="control-label">Placas</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                           {!!Form::text('placas','',['id'=>'placastag','class'=>'form-control form-white'])!!}
                         </div>
-
-
-
                     </div>
                 </form>
             </div>
@@ -193,7 +197,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>
@@ -202,3 +206,25 @@
 
 
 @include('includes.footer')
+
+<script type="text/javascript">
+         $("tr").click(function() {
+                var ID = $(this).attr("id");
+                var fecha= $(this).attr('data-fecha'); 
+                var placas=$(this).attr('data-placas');
+                var embarque=$(this).attr('data-embarque');
+                var usuario=$(this).attr('data-usuari');
+                var ubica=$(this).attr('data-ubica');
+                var entrada=$(this).attr('data-entrada');
+
+                $('#idtag').val(ID);
+                $('#idtag2').val(ID);
+                $('#fechatag').val(fecha);
+                $('#placastag').val(placas);
+                $('#embarquetag').val(embarque);
+                $('#usuariotag').val(usuario);
+                $('#ubicatag').val(ubica);
+                $('#entradatag').val(entrada);
+               
+        });
+</script>
