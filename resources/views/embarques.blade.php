@@ -1,5 +1,6 @@
 @include('includes.header')
 
+
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
@@ -54,10 +55,12 @@
                                         </tr>
                                     </thead>
 
-                                    @foreach($embarques as $emb)
-                                    <?php $fecha = substr($emb->fechalocal,0,10); ?>
                                     <tbody>
-                                        <tr>
+                                    @foreach($embarques as $emb)
+                                    <?php $fecha = substr($emb->fecha,0,10);
+                                            $i=0;
+                                     ?>
+                                        <tr id={{ $emb->id }} data-fecha={{ $fecha }} data-peso={{ $emb->peso }} data-material={{ $emb->materiales_id }} data-usuari={{ $emb->usuarios_id }} data-ubica={{ $emb->ubicaciones_id }} data-cancelado={{ $emb->cancelado }} data-codigo={{ $emb->codigocontrol }} >
 
                                             <td> {{ $emb->id }}</td>
                                             <td> {{ $fecha }}</td>
@@ -67,40 +70,27 @@
                                             <td> {{ $emb->ubica }}</td>
 
                                             <td class="editbtn">
-
-                                                <span data-toggle="modal" data-target="#edit-category">
+                                                <span  data-toggle="modal" data-target="#edit-category">
                                                     <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
                                                     </i>
                                                 </span> 
-
-                                             
                                                 {!!link_to('embarques/embarquedel/'.$emb->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
                                             </td>
                                         </tr>
-                                    </tbody>
                                     @endforeach
+                                    </tbody>
                                 </table>
 
                             </div>
                         </div>
-                    </div>
+                      </div>
                      <!-- Termina Tabla -->
-
-
+                    </div>
                 </div>
             </div>
-        </div>
-
-
-    </div> <!-- container -->
-
-</div> <!-- content -->
-
-
+        </div> <!-- container -->
+    </div> <!-- content -->
 </div><!-- content-page-->
-
-
-
 
 <!-- Modal alta -->
 {!!Form::open(['route'=>'embarques.store','method'=>'POST'])!!}
@@ -115,21 +105,21 @@
                 <form role="form">
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">ID</label>
-                            {!!Form::text('id','',['class'=>'form-control form-white'])!!}
+                            {!!Form::text('id','',['class'=>'form-control form-white', 'disabled'])!!}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Fecha</label>
                              {!!Form::date('fecha','',['class'=>'form-control form-white'])!!}
                         </div>
 
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <label class="control-label">Peso</label>
                            {!!Form::text('peso','',['class'=>'form-control form-white'])!!}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                             <label class="control-label">Cancelado</label>
                             {!!Form::select('cancelado',array('1' => 'Si', '0' => 'No'),null,['class'=>'form-control form-white'] )!!}
                         </div>
@@ -167,10 +157,9 @@
 </div>
 {!!Form::close()!!} 
 <!-- /Modal alta -->
-
-
-
+<?php $id=1;?>
 <!-- Modal editar -->
+{!!Form::open(['route'=>['embarques.update',$id],'method'=>'PUT'])!!}
 <div class="modal fade none-border" id="edit-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
@@ -182,49 +171,43 @@
                 <form role="form">
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">ID</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                            {!!Form::text('id','',[ 'id'=>'idtag','class'=>'form-control form-white', 'disabled'])!!}
+                             <input type="hidden" name="id" id="idtag2">
                         </div>
-
-
-
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Fecha</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                             {!!Form::date('fechalocal','',[ 'id'=>'fechatag','class'=>'form-control form-white'])!!}
                         </div>
 
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <label class="control-label">Peso</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                           {!!Form::text('peso','',['id'=>'pesotag','class'=>'form-control form-white'])!!}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Cancelado</label>
+                            {!!Form::select('cancelado',array('1' => 'Si', '0' => 'No'),'',['id'=>'canceladotag','class'=>'form-control form-white'] )!!}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Codigo de control</label>
+                           {!!Form::text('codigocontrol','',['id'=>'codigotag','class'=>'form-control form-white'])!!}
                         </div>
 
                         <div class="col-md-12">
                             <label class="control-label">Material</label>
-                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Un material</option>
-                                <option value="danger">Otro Material</option>
-
-                            </select>
+                           {!!Form::select('materiales_id', \App\materiales::lists('material','id'),'',['id'=>'materialtag','class'=>'form-control form-white'] )!!}
                         </div>
 
                         <div class="col-md-12">
                             <label class="control-label">Usuario</label>
-                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Usuario 1</option>
-                                <option value="danger">Usuario 2</option>
-
-                            </select>
+                            {!!Form::select('usuarios_id', \App\usuarios::lists('usuario','id'),'',['id'=>'usuariotag','class'=>'form-control form-white'] )!!}
                         </div>
 
                         <div class="col-md-12">
                             <label class="control-label">Ubicacion</label>
-                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Ubicacion 1</option>
-                                <option value="danger">Ubicacion 2</option>
-
-                            </select>
+                           {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),'',['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
                         </div>
 
                     </div>
@@ -234,14 +217,37 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>
 </div>
+{!!Form::close()!!} 
 <!-- /modal editar-->
 
-
-
-
 @include('includes.footer')
+
+  <script type="text/javascript">
+         $("tr").click(function() {
+                var ID = $(this).attr("id");
+                var fecha= $(this).attr('data-fecha'); 
+                var peso=$(this).attr('data-peso');
+                var material=$(this).attr('data-material');
+                var usuario=$(this).attr('data-usuari');
+                var ubica=$(this).attr('data-ubica');
+                var cancelado=$(this).attr('data-cancelado');
+                var codigo=$(this).attr('data-codigo');
+                $('#idtag').val(ID);
+                $('#idtag2').val(ID);
+                $('#fechatag').val(fecha);
+                $('#pesotag').val(peso);
+                $('#materialtag').val(material);
+                $('#usuariotag').val(usuario);
+                $('#ubicatag').val(ubica);
+                $('#canceladotag').val(cancelado);
+                $('#codigotag').val(codigo);
+                console.log(cancelado);
+        });
+
+            
+</script>
