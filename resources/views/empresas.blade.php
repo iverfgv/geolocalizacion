@@ -28,15 +28,9 @@
                               </ol>
                           </div>
                       </div>
-
-
-
                       <button class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#add-category">ALTA EMPRESAS</button>
 
                       <p class="text-muted m-b-30 font-13"></p>
-
-
-
                       <!-- Inicia Tabla -->
                       <div class="row">
                         <div class="col-sm-12">
@@ -56,9 +50,9 @@
                                         </tr>
                                     </thead>
 
-                                    @foreach($empresa as $emp)
                                     <tbody>
-                                        <tr>
+                                    @foreach($empresa as $emp)
+                                        <tr id={{ $emp->id }} data-empresa={{ $emp->empresa }} data-razon={{ $emp->razonsocial }} data-tipo={{ $emp->tiposempresas_id }} data-ubi={{ $emp->ubi }}>
                                             <td>{{ $emp->empresa }} </td>
                                             <td>{{ $emp->razonsocial }}</td>
                                             <td>{{ $emp->tipempresa }}</td>
@@ -76,8 +70,8 @@
                                             </td>
                                         </tr>
                                        
-                                    </tbody>
                                     @endforeach
+                                    </tbody>
                                 </table>
 
                             </div>
@@ -91,14 +85,8 @@
   </div> <!-- content -->
 </div><!-- content-page -->
 
-
-
-
-
-
 <!-- Modal Alta -->
 {!!Form::open(['route'=>'empresas.store','method'=>'POST'])!!}
-
 <div class="modal fade none-border" id="add-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
@@ -149,7 +137,9 @@
 
 
 
-<!-- Modal Editar -->
+<?php $id=1;?>
+<!-- Modal editar -->
+{!!Form::open(['route'=>['empresas.update',$id],'method'=>'PUT'])!!}
 <div class="modal fade none-border" id="edit-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
@@ -160,44 +150,55 @@
             <div class="modal-body">
                 <form role="form">
                     <div class="row">
-
-                        <div class="col-md-12">
-                            <label class="control-label">Empresa</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                    <div class="col-md-6">
+                            <label class="control-label">ID</label>
+                            {!!Form::text('id','',[ 'id'=>'idtag','class'=>'form-control form-white', 'disabled'])!!}
+                             <input type="hidden" name="id" id="idtag2">
                         </div>
-
-
-
+                        <div class="col-md-12">
+                            <label class="control-label">Nombre</label>
+                            {!!Form::text('empresa','',['id'=>'empresatag','class'=>'form-control form-white'])!!}
+                        </div>
                         <div class="col-md-12">
                             <label class="control-label">Razon Social</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                            {!!Form::text('razonsocial','',['id'=>'razontag','class'=>'form-control form-white'])!!}
                         </div>
-
-
                         <div class="col-md-12">
                             <label class="control-label">Tipo de empresa</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                            {!!Form::select('tiposempresas_id', \App\tipoempresas::lists('tipoempresa','id'),null,['id'=>'tipotag','class'=>'form-control form-white'] )!!}
                         </div>
-
                         <div class="col-md-12">
                             <label class="control-label">Ubicaciones</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),null,['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
                         </div>
-
                     </div>
                 </form>
             </div>
-
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                 {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>
 </div>
+{!!Form::close()!!} 
 <!-- /Modal Editar -->
-
-
-
 @include('includes.footer')
+
+ <script type="text/javascript">
+         $("tr").click(function() {
+                var ID = $(this).attr("id");
+                var empresa= $(this).attr('data-empresa'); 
+                var razon=$(this).attr('data-razon');
+                var tipo=$(this).attr('data-tipo');
+                var ubica=$(this).attr('data-ubi');
+                $('#idtag').val(ID);
+                $('#idtag2').val(ID);
+                $('#empresatag').val(empresa);
+                $('#razontag').val(razon);
+                $('#tipotag').val(tipo);
+                $('#ubicatag').val(ubica);
+                console.log(empresa);
+               
+        });
+</script>

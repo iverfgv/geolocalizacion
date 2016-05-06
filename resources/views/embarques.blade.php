@@ -157,6 +157,7 @@
 </div>
 {!!Form::close()!!} 
 <!-- /Modal alta -->
+
 <?php $id=1;?>
 <!-- Modal editar -->
 {!!Form::open(['route'=>['embarques.update',$id],'method'=>'PUT'])!!}
@@ -246,8 +247,6 @@
                 $('#ubicatag').val(ubica);
                 $('#canceladotag').val(cancelado);
                 $('#codigotag').val(codigo);
-                console.log(cancelado);
+               
         });
-
-            
 </script>
