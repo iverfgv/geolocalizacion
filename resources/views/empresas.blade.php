@@ -57,7 +57,14 @@
                                             <td>{{ $emp->empresa }} </td>
                                             <td>{{ $emp->razonsocial }}</td>
                                             <td>{{ $emp->tipempresa }}</td>
-                                            <td>{{ $emp->ubi }}</td>
+                                            <td>
+                                            <?php if($emp->ubi==null){?>
+                                            0
+                                            <?php } 
+                                            else{ ?>
+                                            {{ $emp->ubi }}
+                                            <?php } ?>
+                                            </td>
                                           
 
                                             <td class="editbtn">

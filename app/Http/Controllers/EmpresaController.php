@@ -25,7 +25,7 @@ class EmpresaController extends Controller
               ->select('empresas.*', 'tiposempresas.tipoempresa as tipempresa','ubicacionesempresas.ubicaciones_id as ubi')
               ->where('tiposempresas.activo','=', $flag)            
               ->paginate(20);
-                
+              
             return view('/empresas',['empresa'=>$empresa, 'tipoempre'=>$tipoempre]);
   }
 
