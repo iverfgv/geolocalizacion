@@ -118,7 +118,7 @@
         });
     };
 
-    var pieData = <?php echo $datos?>;
+    var pieData = [{value: 3,color:"#FA5858",highlight:"#FF5A5E",label:"Cartón"},{value: 3,color:"#DF7401",highlight:"#FF5A5E",label:"Papel"},{value: 2,color:"#F7BE81",highlight:"#FF5A5E",label:"PET"},{value: 4,color:"#F5DA81",highlight:"#FF5A5E",label:"LDPE"},{value: 2,color:"#F3F781",highlight:"#FF5A5E",label:"PP"},{value: 2,color:"#D8F781",highlight:"#FF5A5E",label:"HDPE"},{value: 1,color:"#81F7D8",highlight:"#FF5A5E",label:"PC"},{value: 3,color:"#81BEF7",highlight:"#FF5A5E",label:"Metales"},{value: 3,color:"#9F81F7",highlight:"#FF5A5E",label:"Vidrio"}];
 
 
 

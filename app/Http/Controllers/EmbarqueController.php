@@ -23,8 +23,7 @@ class EmbarqueController extends Controller
           ->join('materiales', 'materiales.id', '=', 'embarques.materiales_id')
           ->join('usuarios', 'usuarios.id', '=', 'embarques.usuarios_id')
           ->join('ubicaciones', 'ubicaciones.id', '=', 'embarques.ubicaciones_id')
-          ->select('embarques.*','materiales.material as material','usuarios.usuario as usuari','ubicaciones.ubicacion as ubica')
-          ->paginate(20);
+          ->select('embarques.*','materiales.material as material','usuarios.usuario as usuari','ubicaciones.ubicacion as ubica');
 
         return view('/embarques',compact('embarques'));
     }
