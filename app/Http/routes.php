@@ -37,7 +37,6 @@ Route::get('embarques','EmbarqueController@index');
 Route::get('embarques/embarquedel/{id}','EmbarqueController@delete');
 
 
-
 /////////////USUARIOS-ECOPLAST///////////////////
 Route::resource('usuario','usuariocontroller');
 Route::get('/usuarios','usuariocontroller@index');
@@ -45,7 +44,6 @@ Route::get('usuarios/usuariodel/{id}','usuariocontroller@delete');
 
 Route::get('/','sesioncontroller@login');
 Route::get('/logout','sesioncontroller@logout');
-
 
 
 

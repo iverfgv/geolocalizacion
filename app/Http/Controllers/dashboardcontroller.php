@@ -17,6 +17,142 @@ class dashboardcontroller extends Controller
 
     public function index()
     {		
+        /*********************** grafica de puntos **********************************/
+        $dataembarques=null;
+
+        /**************************** dia uno menor que 100 *******************************/
+        $diaunomenor= "select fecha,count(id) as diaunomenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso<100";    
+        $diaunomenor = DB::select(DB::raw($diaunomenor));
+
+        $diaunomedio = "select fecha,count(id) as diaunomedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso>=100 and peso<1000";   
+        $diaunomedio = DB::select(DB::raw($diaunomedio));
+
+        $diaunomayor = "select fecha,count(id) as diaunomayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso>=1000";    
+        $diaunomayor = DB::select(DB::raw($diaunomayor));
+
+        /**************************** dia uno menor que 100 *******************************/
+        $diadosmenor= "select fecha,count(id) as diadosmenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso<100";    
+        $diadosmenor = DB::select(DB::raw($diadosmenor));
+
+        $diadosmedio = "select fecha,count(id) as diadosmedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso>=100 and peso<1000";   
+        $diadosmedio = DB::select(DB::raw($diadosmedio));
+
+        $diadosmayor = "select fecha,count(id) as diaunomayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso>=1000";    
+        $diadosmayor = DB::select(DB::raw($diadosmayor));
+       
+        /**************************** dia uno menor que 100 *******************************/
+        $diatresmenor= "select fecha,count(id) as diatresmenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso<100";    
+        $diatresmenor = DB::select(DB::raw($diatresmenor));
+
+        $diatresmedio = "select fecha,count(id) as diatresmedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso>=100 and peso<1000";   
+        $diatresmedio = DB::select(DB::raw($diatresmedio));
+
+        $diatresmayor = "select fecha,count(id) as diatresmayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso>=1000";    
+        $diatresmayor = DB::select(DB::raw($diatresmayor));
+        /**************************** dia uno menor que 100 *******************************/
+        $diacuatromenor= "select fecha,count(id) as diacuatromenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso<100";    
+        $diacuatromenor = DB::select(DB::raw($diacuatromenor));
+
+        $diacuatromedio = "select fecha,count(id) as diacuatromedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso>=100 and peso<1000";   
+        $diacuatromedio = DB::select(DB::raw($diacuatromedio));
+
+        $diacuatromayor = "select fecha,count(id) as diacuatromayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso>=1000";    
+        $diacuatromayor = DB::select(DB::raw($diacuatromayor));
+        /**************************** dia uno menor que 100 *******************************/
+        $diacincomenor= "select fecha,count(id) as diacincomenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso<100";    
+        $diacincomenor = DB::select(DB::raw($diacincomenor));
+
+        $diacincomedio = "select fecha,count(id) as diacincomedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso>=100 and peso<1000";   
+        $diacincomedio = DB::select(DB::raw($diacincomedio));
+
+        $diacincomayor = "select fecha,count(id) as diacincomayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso>=1000";   
+        $diacincomayor = DB::select(DB::raw($diacincomayor));
+
+        $day1=null;
+        $day2=null;
+        $day3=null;
+        $day4=null;
+        $day5=null;
+
+        
+        if($diaunomenor!=null && $diaunomedio && $diaunomayor!=null){$day1="";} else{$day1=$diaunomenor->fecha;}
+        if($diadosmenor!=null && $diadosmedio && $diadosmayor!=null){$day2="";} else{$day2=$diadosmenor->fecha;}
+        if($diatresmenor!=null && $diatresmedio && $diatresmayor!=null){$day3="";} else{$day3=$diatresmenor->fecha;}
+        if($diacuatromenor!=null && $diacuatromedio && $diacuatromayor!=null ){$day4="";} else{$day4=$diacuatromenor->fecha;}
+        if($diacincomenor!=null && $diacincomedio && $diacincomayor!=null ){$day5="";} else{$day5=$diacincomenor->fecha;}
+
+        $dataembarques='{';
+        $dataembarques .= 'labels : ["'.$day1.'","'.$day2.'","'.$day3.'","'.$day4.'","'.$day5.'"],';
+       
+        $d1menor=null; $d1medio=null; $d1mayor=null;
+        if($diaunomenor!=null){$d1menor=0;} else{$d1menor=$diaunomenor->diaunomenor;}
+        if($diaunomedio!=null){$d1medio=0;} else{$d1medio=$diaunomedio->diaunomedio;}
+        if($diaunomayor!=null){$d1mayor=0;} else{$d1mayor=$diaunomayor->diaunomayor;}
+
+        $d2menor=null; $d2medio=null; $d2mayor=null;
+        if($diadosmenor!=null){$d2menor=0;} else{$d2menor=$diadosmenor->diadosmenor;}
+        if($diadosmedio!=null){$d2medio=0;} else{$d2medio=$diadosmedio->diadosmedio;}
+        if($diadosmayor!=null){$d2mayor=0;} else{$d2mayor=$diadosmayor->diadosmayor;}
+
+        $d3menor=null; $d3medio=null; $d3mayor=null;
+        if($diatresmenor!=null){$d3menor=0;} else{$d3menor=$diatresmenor->diatresmenor;}
+        if($diatresmedio!=null){$d3medio=0;} else{$d3medio=$diatresmedio->diatresmedio;}
+        if($diatresmayor!=null){$d3mayor=0;} else{$d3mayor=$diatresmayor->diatresmayor;}
+
+        $d4menor=null; $d4medio=null; $d4mayor=null;
+        if($diacuatromenor!=null){$d4menor=0;} else{$d4menor=$diacuatromenor->diacuatromenor;}
+        if($diacuatromedio!=null){$d4medio=0;} else{$d4medio=$diacuatromedio->diacuatromedio;}
+        if($diacincomayor!=null){$d4mayor=0;} else{$d4mayor=$diacincomayor->diacincomayor;}
+
+        $d5menor=null; $d5medio=null; $d5mayor=null;
+        if($diacincomenor!=null){$d5menor=0;} else{$d5menor=$diacincomenor->diacincomenor;}
+        if($diacincomedio!=null){$d5medio=0;} else{$d5medio=$diacincomedio->diacincomedio;}
+        if($diacincomayor!=null){$d5mayor=0;} else{$d5mayor=$diacincomayor->diacincomayor;}
+        
+        $dataembarques .= 'datasets : [
+                {
+                    label: "My First dataset",
+                    fillColor : "rgba(255,255,255,0)",
+                    strokeColor : "rgba(244, 161, 44, 0.9)",
+                    pointColor : "rgba(244, 161, 44, 0.9)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(220,220,220,1ss)",
+                    data : ['.$d1menor.','.$d2menor.','.$d3menor.','.$d4menor.','.$d5menor.']
+                },';
+
+        $dataembarques .= '
+        {
+                    label: "My Second dataset",
+                    fillColor : "rgba(255,255,255,0)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    pointColor : "rgba(151,187,205,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(151,187,205,1)",
+                    data : ['.$d1medio.','.$d2medio.','.$d3medio.','.$d4medio.','.$d5medio.']
+        },';
+
+         $dataembarques .= '
+        {
+                    label: "My Second dataset",
+                    fillColor : "rgba(255,255,255,0)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    pointColor : "rgba(151,187,205,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(151,187,205,1)",
+                    data : ['.$d1mayor.','.$d2mayor.','.$d3mayor.','.$d4mayor.','.$d5mayor.']
+                }
+            ]
+
+        }';
+
+      
+        
+        /****************************************************************************/
+
+
         /*********************** grafica de pastel **********************************/
         $colores = array("#FA5858", "#DF7401", "#F7BE81", "#F5DA81", "#F3F781", 
                          "#D8F781", "#81F7D8", "#81BEF7", "#9F81F7", "#F7819F",
@@ -134,7 +270,6 @@ class dashboardcontroller extends Controller
 
      
 
-
-        return View::make('dashboard',compact('datos','dataclientes'));
+            return View::make('dashboard',compact('datos','dataclientes','dataembarques'));
     }
 }

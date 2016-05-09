@@ -38,10 +38,10 @@ class usuariocontroller extends Controller
 	            		'activo'=>$activo
 	            	]);
 
-	    $usuarios = DB::table('usuarios')  
+	   $usuarios = DB::table('usuarios')  
             ->join('perfiles','usuarios.perfiles_id','=','perfiles.id')  
             ->join('ubicaciones','usuarios.ubicaciones_id','=','ubicaciones.id')  
-            ->select('usuarios.*','perfiles.perfil','ubicaciones.ubicacion')
+            ->select('usuarios.*','perfiles.perfil', 'perfiles.id as perfilid','ubicaciones.ubicacion','ubicaciones.id as ubicacionid')
             ->get();
 
         Session::flash('message','Usuario Agregado Correctamente');  
@@ -53,9 +53,9 @@ class usuariocontroller extends Controller
     	 $usuarios = DB::table('usuarios')  
             ->join('perfiles','usuarios.perfiles_id','=','perfiles.id')  
             ->join('ubicaciones','usuarios.ubicaciones_id','=','ubicaciones.id')  
-            ->select('usuarios.*','perfiles.perfil','ubicaciones.ubicacion')
+            ->select('usuarios.*','perfiles.perfil', 'perfiles.id as perfilid','ubicaciones.ubicacion','ubicaciones.id as ubicacionid')
             ->get();
-
+           
 	   return view('usuarios',compact('usuarios'));
     }
 
@@ -67,6 +67,26 @@ class usuariocontroller extends Controller
     	
     	return redirect('/usuarios');
       }
+
+    public function update(Request $request)
+    { 
+        $id=$request['id']; 
+        $usuario=$request['usuario'];
+        $nombre=$request['nombre'];
+        $perfiles_id=$request['perfiles_id']; 
+        $ubicaciones_id=$request['ubicaciones_id'];
+        $activo=0;
+
+        if($request['activo']==1){
+            $activo=1;
+        }
+
+        DB::update('update usuarios set usuario = ?, nombre = ?, perfiles_id = ?, ubicaciones_id = ?, activo = ?  where id = ? ',array($usuario, $nombre, $perfiles_id, $ubicaciones_id, $activo, $id));
+
+
+        Session::flash('message','Usuario Actualizado Correctamente');     
+        return redirect('/usuarios');
+    }
 
 
 }

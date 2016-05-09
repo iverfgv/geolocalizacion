@@ -44,11 +44,30 @@ class ubicacionescontroller extends Controller
 	   return view('ubicaciones',compact('ubicaciones'));
     }
 
-     public function delete($id)
-     { 
+    public function delete($id)
+    { 
         ubicaciones::destroy($id);
   		Session::flash('message','Ubicacion Eliminado Correctamente');    
     	
     	return redirect('/ubicaciones');
-      }
+    }
+
+    public function update(Request $request)
+    { 
+        $id=$request['id']; 
+        $ubicacion=$request['ubicacion'];
+        $clave=$request['clave'];
+        $descripcion=$request['descripcion'];
+        $activo=0;
+
+        if($request['activo']==1){
+            $activo=1;
+        }
+
+        DB::update('update ubicaciones set ubicacion = ?, clave = ?, descripcion = ?, activo = ?  where id = ? ',array($ubicacion, $clave, $descripcion, $activo, $id));
+
+
+        Session::flash('message','Ubicacion Actualizado Correctamente');     
+        return redirect('/ubicaciones');
+    }
 }

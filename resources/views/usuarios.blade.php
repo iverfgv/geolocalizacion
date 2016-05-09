@@ -61,9 +61,10 @@
                                         </tr>
                                     </thead>
 
-                                @foreach($usuarios as $usuario)
+                                
                                     <tbody>
-                                        <tr>
+                                    @foreach($usuarios as $usuario)
+                        <tr id='{{ $usuario->id }}' data-usuario='{{ $usuario->usuario }}' data-nombre='{{ $usuario->nombre }}' data-perfilesid='{{ $usuario->perfilid }}' data-ubicacionesid='{{ $usuario->ubicacionid }}'data-activo='{{ $usuario->activo }}' >
                                             <td>{{$usuario->usuario}}</td>
                                             <td>{{$usuario->nombre}}</td>
                                             <td>{{$usuario->perfil}}</td>
@@ -127,17 +128,17 @@
                     <div class="row">
                         <div class="col-md-12">
             <label class="control-label">Usuario</label>
-            {!!Form::text('usuario','',['class'=>'form-control form-white','placeholder'=>'Usuario'])!!}
+             {!!Form::text('usuario','',['id'=>'usuario','class'=>'form-control form-white','placeholder'=>'Usuario','required'])!!}
                         </div>
 
                         <div class="col-md-12">
             <label class="control-label">Nombre</label>
-            {!!Form::text('nombre','',['class'=>'form-control form-white','placeholder'=>'Nombre'])!!}
+            {!!Form::text('nombre','',['class'=>'form-control form-white','placeholder'=>'Nombre','required'])!!}
                         </div>
 
                          <div class="col-md-12">
             <label class="control-label">Contraseña</label>
-            {!!Form::text('contrasena','',['class'=>'form-control form-white','placeholder'=>'Contraseña'])!!}
+            {!!Form::text('contrasena','',['class'=>'form-control form-white','placeholder'=>'Contraseña','required'])!!}
                         </div>
 
                         <div class="col-md-12">
@@ -170,36 +171,44 @@
 <!-- /Modal Alta -->
 
 
+<?php $id=1;?>
 <!-- Modal Editar -->
+{!!Form::open(['route'=>['usuario.update',$id],'method'=>'PUT'])!!}
 <div class="modal fade none-border" id="edit-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><strong>Editar</strong> empresas</h4>
+                <h4 class="modal-title"><strong>Editar</strong> usuarios</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="row">
-
                         <div class="col-md-12">
-                            <label class="control-label">Empresa</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+                         {!!Form::hidden('id','',['id'=>'idtag','class'=>'form-control form-white','required'])!!}
+            <label class="control-label">Usuario</label>
+            {!!Form::text('usuario','',['id'=>'usuariotag','class'=>'form-control form-white','required'])!!}
                         </div>
 
-
-
                         <div class="col-md-12">
-                            <label class="control-label">Razon Social</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+            <label class="control-label">Nombre</label>
+            {!!Form::text('nombre','',['id'=>'nombretag','class'=>'form-control form-white','required'])!!}
                         </div>
 
-
                         <div class="col-md-12">
-                            <label class="control-label">Tipo de empresa</label>
-                            <input class="form-control form-white" placeholder="" type="text" name="category-name">
+            <label class="control-label">Perfiles</label>
+            {!!Form::select('perfiles_id', \App\perfiles::lists('perfil','id'),'',['id'=>'perfilesidtag','class'=>'form-control form-white'] )!!}
                         </div>
 
+                        <div class="col-md-12">
+            <label class="control-label">Ubicaciones</label>
+            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),'',['id'=>'ubicacionesidtag','class'=>'form-control form-white'] )!!}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="control-label">Activo</label>
+                            {!!Form::select('activo',array('1' => 'Si', '0' => 'No'),null,['id'=>'activotag','class'=>'form-control form-white','required'] )!!}   
+                        </div>
                     </div>
                 </form>
             </div>
@@ -207,11 +216,34 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>
 </div>
+{!!Form::close()!!} 
 <!-- /Modal Editar -->
+
+<script type="text/javascript">
+         $("tr").click(function() {
+                var id = $(this).attr("id");
+                var usuario = $(this).attr("data-usuario");
+                var nombre= $(this).attr('data-nombre'); 
+                var perfilesid=$(this).attr('data-perfilesid');
+                var ubicacionesid=$(this).attr('data-ubicacionesid');
+                var activo=$(this).attr('data-activo');
+            
+                $('#idtag').val(id);              
+                $('#usuariotag').val(usuario);
+                $('#nombretag').val(nombre);
+                $('#perfilesidtag').val(perfilesid);
+                $('#ubicacionesidtag').val(ubicacionesid);
+                $('#activotag').val(activo);
+
+                if(activo==1){
+                 document.getElementById('idactivo').checked = true;
+                }else{document.getElementById('idactivo').checked = false;}
+        });
+</script>
 
 @include('includes.footer')
