@@ -130,6 +130,19 @@
                                     <li {{{Request::is('ubicaciones')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/ubicaciones') }}">Ubicaciones</a>
                                     </li>
+
+                                    <li {{{Request::is('tipoempresa')? 'class=active' :''}}}>
+                                        <a class="" href="{{ url('/tipoempresa') }}">Tipo Empresa</a>
+                                    </li>
+                                    <li {{{Request::is('grupos')? 'class=active' :''}}}>
+                                        <a class="" href="{{ url('/grupos') }}">Grupos</a>
+                                    </li>
+                                     <li {{{Request::is('materiales')? 'class=active' :''}}}>
+                                        <a class="" href="{{ url('/materiales') }}">Materiales</a>
+                                    </li>
+                                     <li {{{Request::is('accesos')? 'class=active' :''}}}>
+                                        <a class="" href="{{ url('/accesos') }}">Accesos</a>
+                                    </li>
     
                                 </ul>
                             </li>

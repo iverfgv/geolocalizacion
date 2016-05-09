@@ -18,6 +18,12 @@
                           {{Session::get('message')}}
                         </div>
                         @endif
+                        @if(Session::has('message-error'))
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                          {{Session::get('message-error')}}
+                        </div>
+                        @endif
                             <div class="col-sm-12">
                                 <h4 class="page-title">Dashboard </h4>
                                 <ol class="breadcrumb">
@@ -61,7 +67,7 @@
                                     <?php $fecha = substr($emb->fechalocal,0,10);
                                             $i=0;
                                      ?>
-                                        <tr id='{{ $emb->id }}' data-fecha='{{ $fecha }}' data-peso='{{ $emb->peso }}' data-material='{{ $emb->materiales_id }}' data-usuari='{{ $emb->usuarios_id }}' data-ubica='{{ $emb->ubicaciones_id }}' data-cancelado='{{ $emb->cancelado }}' data-codigo='{{ $emb->codigocontrol }}' >
+                                        <tr id='{{ $emb->id }}' data-fecha='{{ $fecha }}' data-peso='{{ $emb->peso }}' data-material='{{ $emb->materiales_id }}' data-usuari='{{ $emb->usuarios_id }}' data-ubica='{{ $emb->ubicaciones_id }}' data-cancelado='{{ $emb->cancelado }}' data-codigo='{{ $emb->codigocontrol }}'  data-econ='{{ $emb->notasalidaecoplast }}' data-clienten='{{ $emb->notasalidacliente }}' >
 
                                             <td> {{ $emb->id }}</td>
                                             <td> {{ $fecha }}</td>
@@ -129,12 +135,12 @@
                            {!!Form::text('codigo','',['class'=>'form-control form-white','required'])!!}
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Material</label>
                            {!!Form::select('material', \App\materiales::lists('material','id'),null,['class'=>'form-control form-white'] )!!}
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Usuario</label>
                             {!!Form::select('usuario', \App\usuarios::lists('usuario','id'),null,['class'=>'form-control form-white'] )!!}
                         </div>
@@ -143,7 +149,14 @@
                             <label class="control-label">Ubicacion</label>
                            {!!Form::select('ubicacion', \App\ubicaciones::lists('ubicacion','id'),null,['class'=>'form-control form-white'] )!!}
                         </div>
-
+                        <div class="col-md-12">
+                            <label class="control-label">Nota Ecoplast</label>
+                           {!!Form::text('ecoplastn','',['class'=>'form-control form-white','required'])!!}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Nota Cliente</label>
+                           {!!Form::text('clienten','',['class'=>'form-control form-white','required'])!!}
+                        </div>
                     </div>
                 </form>
             </div>
@@ -197,12 +210,12 @@
                            {!!Form::text('codigocontrol','',['id'=>'codigotag','class'=>'form-control form-white','required'])!!}
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Material</label>
                            {!!Form::select('materiales_id', \App\materiales::lists('material','id'),'',['id'=>'materialtag','class'=>'form-control form-white'] )!!}
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Usuario</label>
                             {!!Form::select('usuarios_id', \App\usuarios::lists('usuario','id'),'',['id'=>'usuariotag','class'=>'form-control form-white'] )!!}
                         </div>
@@ -210,6 +223,14 @@
                         <div class="col-md-12">
                             <label class="control-label">Ubicacion</label>
                            {!!Form::select('ubicaciones_id', \App\ubicaciones::lists('ubicacion','id'),'',['id'=>'ubicatag','class'=>'form-control form-white'] )!!}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Nota Ecoplast</label>
+                           {!!Form::text('notasalidaecoplast','',['id'=>'econtag','class'=>'form-control form-white','required'])!!}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Nota Cliente</label>
+                           {!!Form::text('notasalidacliente','',['id'=>'cliententag','class'=>'form-control form-white','required'])!!}
                         </div>
 
                     </div>
@@ -239,6 +260,8 @@
                 var ubica=$(this).attr('data-ubica');
                 var cancelado=$(this).attr('data-cancelado');
                 var codigo=$(this).attr('data-codigo');
+                var econ=$(this).attr('data-econ');
+                var clienten=$(this).attr('data-clienten');
                 $('#idtag').val(ID);
                 $('#idtag2').val(ID);
                 $('#fechatag').val(fecha);
@@ -248,6 +271,8 @@
                 $('#ubicatag').val(ubica);
                 $('#canceladotag').val(cancelado);
                 $('#codigotag').val(codigo);
+                $('#econtag').val(econ);
+                $('#cliententag').val(clienten);
                
         });
 </script>

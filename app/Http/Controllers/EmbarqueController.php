@@ -19,12 +19,12 @@ class EmbarqueController extends Controller
 
     public function index()
     {
-    	  $embarques = DB::table('embarques')
+        $embarques = DB::table('embarques')
           ->join('materiales', 'materiales.id', '=', 'embarques.materiales_id')
           ->join('usuarios', 'usuarios.id', '=', 'embarques.usuarios_id')
           ->join('ubicaciones', 'ubicaciones.id', '=', 'embarques.ubicaciones_id')
-          ->select('embarques.*','materiales.material as material','usuarios.usuario as usuari','ubicaciones.ubicacion as ubica')
-          ->paginate(20);
+          ->select('embarques.*','materiales.material as material','usuarios.usuario as usuari','ubicaciones.ubicacion as ubica')->get();
+          
 
         return view('/embarques',compact('embarques'));
     }
@@ -43,6 +43,8 @@ class EmbarqueController extends Controller
                'fechalocal'=>$request['fecha'],
                'codigocontrol'=>$request['codigo'],
                'cancelado'=>$request['cancelado'],
+               'notasalidaecoplast'=>$request['ecoplastn'],
+               'notasalidacliente'=>$request['clienten'],
               ]);
         Session::flash('message','Embarque Creado Correctamente');     
         return redirect('/embarques');
@@ -51,7 +53,17 @@ class EmbarqueController extends Controller
 
       public function delete($id)
       { 
+
+          try
+       {
           \App\embarques::destroy($id);
+       }
+       catch(\Illuminate\Database\QueryException $e)
+       {
+            Session::flash('message-error','No se a Podido Eliminar Embarque');    
+            return redirect('/embarques');
+       }
+         
           Session::flash('message','Embarque Eliminado Correctamente');    
           return redirect('/embarques');
       }

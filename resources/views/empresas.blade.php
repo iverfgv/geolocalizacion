@@ -17,6 +17,12 @@
                           {{Session::get('message')}}
                         </div>
                         @endif
+                        @if(Session::has('message-error'))
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                          {{Session::get('message-error')}}
+                        </div>
+                        @endif
                             <div class="col-sm-12">
                                 <h4 class="page-title">Dashboard </h4>
                                 <ol class="breadcrumb">
@@ -57,7 +63,14 @@
                                             <td>{{ $emp->empresa }} </td>
                                             <td>{{ $emp->razonsocial }}</td>
                                             <td>{{ $emp->tipempresa }}</td>
-                                            <td>{{ $emp->ubi }}</td>
+                                            <td>
+                                            <?php if($emp->ubi==null){?>
+                                            0
+                                            <?php } 
+                                            else{ ?>
+                                            {{ $emp->ubi }}
+                                            <?php } ?>
+                                            </td>
                                           
 
                                             <td class="editbtn">
