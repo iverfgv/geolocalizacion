@@ -48,7 +48,16 @@ class EmpresaController extends Controller
 
     public function delete($id)
     { 
-            \App\empresas::destroy($id);
+        try
+       {
+         \App\empresas::destroy($id);
+       }
+       catch(\Illuminate\Database\QueryException $e)
+       {
+            Session::flash('message-error','No se a Podido Eliminar Empresa');    
+            return redirect('/empresas');
+       }
+            
             Session::flash('message','Empresa Eliminado Correctamente');    
             return redirect('/empresas');
     }

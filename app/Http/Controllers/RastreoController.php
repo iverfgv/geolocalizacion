@@ -41,7 +41,18 @@ class RastreoController extends Controller
 
        public function delete($id)
     {
-           \App\rastreo::destroy($id);
+
+        try
+       {
+          \App\rastreo::destroy($id);
+       }
+       catch(\Illuminate\Database\QueryException $e)
+       {
+            Session::flash('message-error','No se a Podido Eliminar Rastreo');    
+            return redirect('/rastreo');
+       }
+
+          
         Session::flash('message','Rastreo Eliminado Correctamente');    
         return redirect('/rastreo');
     }

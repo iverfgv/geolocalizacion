@@ -18,6 +18,25 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, *');
 
 
 
+////////////GRUPO-ECOPLAST///////////////////
+Route::resource('accesos','AccesosController');       
+Route::get('accesos','AccesosController@index'); 
+Route::get('accesos/accesodel/{id}','AccesosController@delete');
+
+////////////GRUPO-ECOPLAST///////////////////
+Route::resource('materiales','MaterialesController');       
+Route::get('materiales','MaterialesController@index'); 
+Route::get('materiales/materialdel/{id}','MaterialesController@delete');
+
+////////////GRUPO-ECOPLAST///////////////////
+Route::resource('grupos','GruposController');       
+Route::get('grupos','GruposController@index'); 
+Route::get('grupos/grupodel/{id}','GruposController@delete');
+
+/////////////TIPO-EMPRESA-ECOPLAST///////////////////
+Route::resource('tipoempresa','TipoempresaController');       
+Route::get('tipoempresa','TipoempresaController@index'); 
+Route::get('tipoempresa/tipoempresadel/{id}','TipoempresaController@delete');
 
 /////////////EMPRESA-ECOPLAST///////////////////
 Route::resource('empresas','EmpresaController');       
