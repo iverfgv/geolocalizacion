@@ -61,11 +61,19 @@ class usuariocontroller extends Controller
 
      public function delete($id)
      { 
-        User::destroy($id);
+        try
+        {
+            User::destroy($id);
 
-        Session::flash('message','Usuario Eliminado Correctamente');  
-    	
-    	return redirect('/usuarios');
+            Session::flash('message','Usuario Eliminado Correctamente');
+        	return redirect('/usuarios');
+        }
+
+        catch(\Illuminate\Database\QueryException $e)
+        {
+            Session::flash('message','No se a Podido Eliminar el Usuario');    
+            return redirect('/usuarios');
+        }
       }
 
     public function update(Request $request)

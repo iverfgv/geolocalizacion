@@ -77,11 +77,20 @@ class perfilcontroller extends Controller
     }
 
     public function delete($id)
-    { 
+    {
+       try
+       {
         perfiles::destroy($id);
-        Session::flash('message','Perfil Eliminado Correctamente');  
+        Session::flash('message','Perfil Eliminado Correctamente');
     	
     	return redirect('/perfiles');
+       }
+
+        catch(\Illuminate\Database\QueryException $e)
+        {
+            Session::flash('message','No se a Podido Eliminar el Perfil');    
+            return redirect('/perfiles');
+        }
     }
 
     public function update(Request $request)

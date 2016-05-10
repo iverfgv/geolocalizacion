@@ -20,7 +20,7 @@ class logincontroller extends Controller
 
         $user = DB::table('usuarios')
         ->select('usuarios.*')    
-        ->whereusuario($nusuario)->wherecontrasena($contrasena)->first();
+        ->whereusuario($nusuario)->wherecontrasena($contrasena)->whereactivo('1')->first();
 
        
         if($user!=null){

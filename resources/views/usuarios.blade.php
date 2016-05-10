@@ -162,7 +162,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                {!!Form::submit('guardar',['class'=>'btn btn-default'])!!}
+                {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>

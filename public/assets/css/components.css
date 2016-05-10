@@ -24,6 +24,11 @@ File: Components
   border-radius: 3px;
   outline: none !important;
 }
+
+.tam .col-md-5
+{
+  position: inherit !important;
+}
 .btn-md {
   padding: 8px 16px;
 }

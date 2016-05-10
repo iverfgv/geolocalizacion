@@ -45,11 +45,20 @@ class ubicacionescontroller extends Controller
     }
 
     public function delete($id)
-    { 
-        ubicaciones::destroy($id);
-  		Session::flash('message','Ubicacion Eliminado Correctamente');    
+    {
+        try
+        {
+           ubicaciones::destroy($id);
+  		   Session::flash('message','Ubicacion Eliminado Correctamente');    
     	
-    	return redirect('/ubicaciones');
+    	   return redirect('/ubicaciones');
+        }
+
+        catch(\Illuminate\Database\QueryException $e)
+        {
+            Session::flash('message','No se a Podido Eliminar la Ubicacion');    
+            return redirect('/ubicaciones');
+        }
     }
 
     public function update(Request $request)
