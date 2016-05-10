@@ -18,12 +18,12 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, *');
 
 
 
-////////////GRUPO-ECOPLAST///////////////////
+////////////ACCESO-ECOPLAST///////////////////
 Route::resource('accesos','AccesosController');       
 Route::get('accesos','AccesosController@index'); 
 Route::get('accesos/accesodel/{id}','AccesosController@delete');
 
-////////////GRUPO-ECOPLAST///////////////////
+////////////MATERIALES-ECOPLAST///////////////////
 Route::resource('materiales','MaterialesController');       
 Route::get('materiales','MaterialesController@index'); 
 Route::get('materiales/materialdel/{id}','MaterialesController@delete');

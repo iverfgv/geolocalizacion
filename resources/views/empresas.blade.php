@@ -123,13 +123,36 @@
                         </div>
 
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="control-label">Tipo de empresa</label>
                             {!!Form::select('tipoempresa', \App\tipoempresas::lists('tipoempresa','id'),null,['class'=>'form-control form-white','required'] )!!}
 
                         </div>
-
-                      
+                        <div class="col-md-8">
+                                <label class="control-label">Ubicacion</label>
+                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','ubicacion'),null,['name'=>'valor_uno','id'=>'valor_uno', 'class'=>'form-control form-white','required'] )!!}
+                        </div> 
+                        <div class="col-md-3">
+                         <label class="control-label"></label>
+                            <button onclick="javascript: fn_agregar();" type="button" name="agregar" value="Agregar" id="agregar" class="btn btn-primary waves-effect posi">Agregar</button>
+                        </div>
+                        <div class="col-md-12">
+                          <hr>
+                          <p>Ubicacion Agregada:</p>
+                          </div>
+                        <div class="col-md-12 scrolltabla">
+                            <table id="grilla" class="lista">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>  
+                          <input type="hidden" name="ubicaciones" id="idubis">  
                     </div>
                 </form>
             </div>
@@ -253,4 +276,53 @@
                 $('#tipolavel').text(tipo2);
                 $('#ubilavel').text(ubica);
         });
+</script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+                fn_dar_eliminar();
+                fn_cantidad();
+                $("#frm_usu").validate();
+            });
+            
+            function fn_cantidad(){
+                cantidad = $("#grilla tbody").find("tr").length;
+                $("#span_cantidad").html(cantidad);
+            };
+            
+            function fn_agregar(){
+                var arreglo = [];
+                  
+                cadena = "<tr>";
+                cadena = cadena + "<td id='idvalues'>"+ $("#valor_uno").val() + "</td>";
+                cadena = cadena + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
+         
+                $("#grilla tbody").append(cadena);
+
+                $('#grilla tbody tr').each(function(){
+                    variables =$(this).find("td[id='idvalues']").text()
+                    arreglo.push(variables);
+                });
+                 console.log(arreglo);
+                 $('#idubis').val(arreglo);
+                fn_dar_eliminar();
+                fn_cantidad();
+                
+            };
+            
+            function fn_dar_eliminar(){
+                $("a.elimina").click(function(){
+                    id = $(this).parents("tr").find("td").eq(0).html();
+                   
+                        $(this).parents("tr").fadeOut("normal", function(){
+                            $(this).remove();
+                           
+                        })
+                    
+                });
+            };
+
+
+
 </script>

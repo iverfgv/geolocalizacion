@@ -19,18 +19,18 @@ class EmpresaController extends Controller
   {
           	$tipoempre = \App\tipoempresas::All();
         		$flag=1;
-          	$empresa = DB::table('empresas')
-          	  ->join('tiposempresas', 'tiposempresas.id', '=', 'empresas.tiposempresas_id')
-          	  ->leftjoin('ubicacionesempresas', 'ubicacionesempresas.empresas_id', '=', 'empresas.id')
-              ->select('empresas.*', 'tiposempresas.tipoempresa as tipempresa','ubicacionesempresas.ubicaciones_id as ubi')
-              ->where('tiposempresas.activo','=', $flag)            
-              ->paginate(20);
+
+            $sql = "select empresas.*, tiposempresas.tipoempresa as tipempresa, count(ubicacionesempresas.empresas_id) as ubi from empresas join ubicacionesempresas on empresas.id=ubicacionesempresas.empresas_id join tiposempresas on empresas.tiposempresas_id=tiposempresas.id group by empresas.empresa";       
+        
+     $empresa = DB::select(DB::raw($sql));
               
             return view('/empresas',['empresa'=>$empresa, 'tipoempre'=>$tipoempre]);
   }
 
   public function store(Request $request)
   {   
+      $idubis = $request['ubicaciones'];
+      $valores=explode(",",$idubis);
             \App\empresas::create([
                 'empresa'=>$request['empresa'],
                 'razonsocial'=>$request['razon'],
@@ -41,7 +41,22 @@ class EmpresaController extends Controller
             $empresaid = DB::table('empresas')
               ->select('empresas.id')
               ->where('empresas.empresa','=',$idempre)->first();
-                  
+       
+      foreach ($valores as $valor) {
+              
+              $idubicacion = DB::table('ubicaciones')
+              ->select('ubicaciones.id')
+              ->where('ubicaciones.ubicacion','=',$valor)->first();
+              
+              
+                 \App\ubicacionempresa::create([
+                'ubicaciones_id'=>$idubicacion->id,
+                'empresas_id'=>$empresaid->id,
+                
+              ]); 
+  
+            }
+
     
             return redirect('/empresas');
   }

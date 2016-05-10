@@ -188,6 +188,16 @@ File: Components
   border: 1px solid #7266ba !important;
   color: #ffffff;
 }
+.posi{
+    margin-top: 6px;
+    padding: 3px 13px;
+    margin-left: -7px;
+}
+.scrolltabla{
+    height: 100px;
+    
+    overflow-y: scroll;
+}
 .btn-pink,
 .btn-pink:hover,
 .btn-pink:focus,
