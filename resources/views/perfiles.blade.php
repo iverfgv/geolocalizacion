@@ -1,6 +1,5 @@
 @include('includes.header')
 
-
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
@@ -64,9 +63,11 @@
                                         </tr>
                                     </thead>
 
-                                @foreach($perfiles as $perfil)
+                               
                                     <tbody>
-                                        <tr>
+                                     @foreach($perfiles as $perfil)
+                                    <tr id='{{ $perfil->id }}' data-perfil='{{ $perfil->perfil }}' data-pesaje='{{ $perfil->pesaje }}' data-supervisor='{{ $perfil->supervisor }}' data-embarques='{{ $perfil->embarques }}' data-administracion='{{ $perfil->administracion }}' data-reportes='{{ $perfil->reportes }}' data-activo='{{ $perfil->activo }}' >
+                            
                                             <td>{{$perfil->perfil}}</td>
                                             @if($perfil->pesaje==1)
                                                 <td><i class="fa fa-check-circle-o fa-2x"></i></td>
@@ -106,10 +107,12 @@
                                           
 
                                             <td class="editbtn">
-                                                <a href="" title="Detalles" <i class="fa fa-file-text-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></i></a>
+                                             <span data-toggle="modal" data-target="#detalle-category">
+                                                <i class="fa fa-file-text-o" data-toggle="tooltip" data-placement="top" title="Detalles " data-original-title="Tooltip on top"></i>
+                                                </span>
 
-                                                <span id="editar" data-id="1994" data-toggle="modal" data-target="#edit-category-1">
-                                                <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
+                                                <span data-toggle="modal" data-target="#edit-category">
+                                                    <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
                                                 </i>
                                                 </span> 
 
@@ -157,20 +160,20 @@
 
 
 <!-- Modal Alta --> 
-{!!Form::open(['route'=>'perfil.store','method','POST'])!!} 
+{!!Form::open(['route'=>'perfil.store','method','POST'])!!}
 <div class="modal fade none-border" id="add-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><strong>Alta</strong> perfil</h4>
+                <h4 class="modal-title"><strong>Alta</strong> perfiles</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="row">
                         <div class="col-md-12">
                     <label class="control-label">Perfil</label>
-                    {!!Form::text('perfil','',['class'=>'form-control form-white','placeholder'=>'Nombre'])!!}
+                    {!!Form::text('perfil','',['class'=>'form-control form-white','placeholder'=>'Nombre','required'])!!}
                         </div>
                         <div class="col-md-12">
 
@@ -224,47 +227,50 @@
 {!!Form::close()!!}
 <!-- /Modal Alta -->
 
-
+<?php $id=1;?>
 <!-- Modal Editar -->
-<div class="modal fade none-border" id="edit-category-1" style="display: none;">
+{!!Form::open(['route'=>['perfil.update',$id],'method'=>'PUT'])!!}
+<div class="modal fade none-border" id="edit-category" style="display: none;">
     <div class="modal-dialog mdlcustm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><strong>Editar</strong> empresas</h4>
+                <h4 class="modal-title"><strong>Editar</strong> perfiles</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="row">
+                    {!!Form::hidden('id','',['id'=>'idtag','class'=>'form-control form-white','required'])!!}
                         <div class="col-md-12">
                             <label class="control-label">Perfil</label>
-                            <input class="form-control form-white" placeholder="Nombre" type="text" name="category-name">
+                            {!!Form::text('perfil','',['id'=>'perfiltag','class'=>'form-control form-white','required'])!!}
+                            
                         </div>
                         <div class="col-md-12">
 
                             <div class="checkbox chkbx">
-                                <input type="checkbox" id="inlineCheckbox1" value="option1">
+                                <input type="checkbox" id="idpesaje" name="pesaje" value="1">
                                 <label for="inlineCheckbox1"> Pesaje </label>
                             </div>
 
                             <div class="checkbox chkbx">
-                                <input type="checkbox" id="inlineCheckbox2" value="option2">
+                                <input type="checkbox" name="supervisor" id="idsupervisor" value="1">
                                 <label for="inlineCheckbox2"> Supervisor </label>
                             </div>
 
 
                             <div class="checkbox chkbx">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3">
+                                <input type="checkbox" name="embarques" id="idembarques" value="1">
                                 <label for="inlineCheckbox3"> Embarques </label>
                             </div>
 
                             <div class="checkbox chkbx">
-                                <input type="checkbox" id="inlineCheckbox4" value="option4">
+                                <input type="checkbox" name="administracion" id="idadministracion" value="1">
                                 <label for="inlineCheckbox4"> Administracion </label>
                             </div>
 
                             <div class="checkbox chkbx">
-                                <input type="checkbox" id="inlineCheckbox5" value="option5">
+                                <input type="checkbox" name="reportes" id="idreportes" value="1">
                                 <label for="inlineCheckbox5"> Reportes </label>
                             </div>
 
@@ -275,11 +281,7 @@
 
                         <div class="col-md-6">
                             <label class="control-label">Activo</label>
-                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Si</option>
-                                <option value="danger">No</option>
-
-                            </select>
+                            {!!Form::select('activo',array('1' => 'Si', '0' => 'No'),null,['id'=>'activotag','class'=>'form-control form-white','required'] )!!}                            
                         </div>
                     </div>
                 </form>
@@ -288,20 +290,128 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-default waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+               {!!Form::submit('Guardar',['class'=>'btn btn-default'])!!}
             </div>
         </div>
     </div>
 </div>
+{!!Form::close()!!} 
 <!-- /Modal Editar -->
 
-<script>
-function myFunction() {
-   alert($(document).on("click", ".modal", function () {
-        var myDNI = $(this).data('id');
-        $(".modal #DNI").val( myDNI );
-        }));
-}
+<!-- Modal Detalle -->
+<div class="modal fade none-border" id="detalle-category" style="display: none;">
+    <div class="modal-dialog mdlcustm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"><strong>Detalle</strong> perfil</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <form role="form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label">ID: </label>
+                            {!!Form::label('','',['id'=>'idlavel','class'=>'control-label']);!!}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Perfil: </label>
+                            <label class="control-label" id="perfillavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Pesaje: </label>
+                            <label class="control-label" id="pesajelavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Supervisor: </label>
+                            <label class="control-label" id="supervisorlavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Embarque: </label>
+                            <label class="control-label" id="embarqueslavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Administracion: </label>
+                            <label class="control-label" id="administracionlavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Reportes: </label>
+                            <label class="control-label" id="reporteslavel"></label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label">Activo: </label>
+                            <label class="control-label" id="activolavel"></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Modal Detalle -->
+
+<script type="text/javascript">
+         $("tr").click(function() {
+                var id = $(this).attr("id");
+                var perfil = $(this).attr("data-perfil");
+                var pesaje= $(this).attr('data-pesaje'); 
+                var supervisor=$(this).attr('data-supervisor');
+                var embarques=$(this).attr('data-embarques');
+                var administracion=$(this).attr('data-administracion');
+                var reportes=$(this).attr('data-reportes');
+                var activo=$(this).attr('data-activo');
+            
+                $('#idtag').val(id);              
+                $('#perfiltag').val(perfil);
+                $('#pesajetag').val(pesaje);
+                $('#supervisortag').val(supervisor);
+                $('#embarquestag').val(embarques);
+                $('#administraciontag').val(administracion);
+                $('#reportestag').val(reportes);
+                $('#activotag').val(activo);
+
+                 ///lavels
+                $('#idlavel').text(id); 
+                $('#perfillavel').text(perfil);
+                if(pesaje==1){vpesaje="Activado";}else{vpesaje="No activado";}
+                $('#pesajelavel').text(vpesaje);
+                 if(supervisor==1){vsupervisor="Activado";}else{vsupervisor="No activado";}
+                $('#supervisorlavel').text(vsupervisor);
+                if(embarques==1){vembarques="Activado";}else{vembarques="No activado";}
+                $('#embarqueslavel').text(vembarques);
+                if(administracion==1){vadministracion="Activado";}else{vadministracion="No activado";}
+                $('#administracionlavel').text(vadministracion);
+                if(reportes==1){vreportes="Activado";}else{vreportes="No activado";}
+                $('#reporteslavel').text(vreportes);
+                if(activo==1){vactivo="Activado";}else{vactivo="No activado";}
+                $('#activolavel').text(vactivo);
+
+
+                if(pesaje==1){
+                 document.getElementById('idpesaje').checked = true;
+                }else{document.getElementById('idpesaje').checked = false;}
+
+                if(supervisor==1){
+                 document.getElementById('idsupervisor').checked = true;
+                }else{document.getElementById('idsupervisor').checked = false;}
+
+                if(embarques==1){
+                 document.getElementById('idembarques').checked = true;
+                }else{document.getElementById('idembarques').checked = false;}
+
+                if(administracion==1){
+                 document.getElementById('idadministracion').checked = true;
+                }else{document.getElementById('idadministracion').checked = false;}
+
+                if(reportes==1){
+                 document.getElementById('idreportes').checked = true;
+                }else{document.getElementById('idreportes').checked = false;}
+
+                if(activo==1){
+                 document.getElementById('idactivo').checked = true;
+                }else{document.getElementById('idactivo').checked = false;}
+
+        });
 </script>
 
 @include('includes.footer')

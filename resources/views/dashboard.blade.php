@@ -122,16 +122,55 @@
 
 
 
-
-
-
-
    /************************ grafica de barras *************************************/
-   var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-
 	var barChartData =<?php echo $dataclientes?>
+
+	/************************ grafica de embarques *************************************/
+
+	var randomScalingFactor = function(){ return Math.round(Math.random()*20)};
+		var lineChartData = <?php echo $dataembarques?>
+		/*{
+			labels : ["Lunes","Martes","Miercoles","Jueves","Viernes"],
+			datasets : [
+				{
+					label: "My First dataset",
+					fillColor : "rgba(255,255,255,0)",
+					strokeColor : "rgba(244, 161, 44, 0.9)", //colore linea
+					pointColor : "rgba(244, 161, 44, 0.9)", //color punto
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1ss)",
+					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				},
+				{
+					label: "My Second dataset",
+					fillColor : "rgba(255,255,255,0)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				},
+				{
+					label: "My Second dataset",
+					fillColor : "rgba(255,255,255,0)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				}
+			]
+
+		}*/
+
+
+
 	
     window.onload = function() {
+    	var ctxc = document.getElementById("canvasembarques").getContext("2d");
     	var ctx = document.getElementById("canvas-barras").getContext("2d");
     	var ctx1 = document.getElementById("chart-area1").getContext("2d");
     	var ctx2 = document.getElementById("chart-area2").getContext("2d");
@@ -147,6 +186,10 @@
         window.myPie = new Chart(ctx2).Pie(pieData, {
 			responsive : true
 		});
+
+		window.myLine = new Chart(ctxc).Line(lineChartData, {
+			responsive: true
+		});
     };
     </script>
 
@@ -155,18 +198,28 @@
    
     <div id="chartjs-tooltip"></div>
 	
-                        <div class="row">
-							<div class="col-lg-12">
-								<div class="card-box">
-									<h4 class="m-t-0 header-title"><b>Embarques</b></h4>
-									<p class="text-muted m-b-30 font-13">
+    <!--
+	<div class="col-lg-12">
+		<div class="card-box">
+			<h4 class="m-t-0 header-title"><b>Embarques</b></h4>
+				<p class="text-muted m-b-30 font-13">
 										
-									</p>
+				</p>
 									
-									<div id="simple-line-chart" class="ct-chart ct-golden-section"></div>
-								</div>
-							</div>             
+			<div id="simple-line-chart" class="ct-chart ct-golden-section"></div>
+		</div>
+	</div>-->        
+
+                        <div class="row">
+							     
                         </div>
+
+
+                        <div style="width:97%; height:7%;">
+							<div>
+								<canvas id="canvasembarques" ></canvas>
+							</div>
+						</div>
 
 						<div class="row">												
 

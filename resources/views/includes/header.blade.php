@@ -38,7 +38,7 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
   <![endif]-->
 <script type='text/javascript' src="assets/js/modernizr.min.js"></script>
-<script src="../graficas/Chart.js"></script>   
+<script src="../../graficas/Chart.js"></script>  
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
         
 </head>

@@ -76,11 +76,52 @@ class perfilcontroller extends Controller
 	   return view('perfiles',compact('perfiles'));
     }
 
-     public function delete($id)
-     { 
+    public function delete($id)
+    { 
         perfiles::destroy($id);
         Session::flash('message','Perfil Eliminado Correctamente');  
     	
     	return redirect('/perfiles');
-      }
+    }
+
+    public function update(Request $request)
+    {   
+    	$id=$request['id'];
+    	$perfil=$request['perfil'];
+    	$pesaje=0;
+    	$supervisor=0;
+    	$embarques=0;
+    	$administracion=0;
+    	$reportes=0;
+    	$activo=0;
+
+    	if($request['pesaje']==1){
+    		$pesaje=1;
+    	}
+
+    	if($request['supervisor']==1){
+    		$supervisor=1;
+    	}
+
+    	if($request['embarques']==1){
+    		$embarques=1;
+    	}
+
+    	if($request['administracion']==1){
+    		$administracion=1;
+    	}
+
+    	if($request['reportes']==1){
+    		$reportes=1;
+    	}
+
+    	if($request['activo']==1){
+    		$activo=1;
+    	}
+
+    	DB::update('update perfiles set perfil = ?, pesaje = ?, supervisor = ?, embarques = ?, administracion = ?, reportes = ?, activo = ?  where id = ? ',array($perfil, $pesaje, $supervisor, $embarques, $administracion, $reportes, $activo, $id));
+
+        Session::flash('message','Perfil Actualizado Correctamente');     
+        return redirect('/perfiles');
+    }
 }
