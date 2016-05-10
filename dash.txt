@@ -212,7 +212,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de Embarques por DÃ­a
+						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de Embarques por Día
 						</div> 
 						<br>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -228,28 +228,25 @@
 					</div>
 				</div>
 		</div>
-			<div class="tam">
-			<div class="col-md-5">
-				<div class="panel panel-default ">
-					<div class="panel-heading ">
+
+			<div style=" float: left;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
 						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de Materiales
 					</div>
-						
-							<canvas  id="chart-area1" width="0" height="0"></canvas>
-				
-						<canvas  id="chart-area2" width="500" height="340"></canvas>	
-				</div>	
-				</div>
-				</div>
-											
-			
+						<div>
+							<canvas id="chart-area1" width="0" height="0"></canvas>
+						</div>
+						<canvas id="chart-area2" width="500" height="340"></canvas>	
+				</div>						
+			</div>
 
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de clientes
 					</div>
-					 		<canvas id="canvas-barras" width="580px" height="350px"></canvas>	
+					 		<canvas id="canvas-barras" width="500px" height="350px"></canvas>	
 				</div>
 			</div>
                         <!--<div style="width:97%; height:7%;">
