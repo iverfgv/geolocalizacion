@@ -228,6 +228,7 @@
 					</div>
 				</div>
 		</div>
+		
 			<div class="tam">
 			<div class="col-md-5">
 				<div class="panel panel-default ">
