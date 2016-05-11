@@ -87,7 +87,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                     <div style="text-align: right;">{{$embarques->render()}}</div>
                             </div>
                         </div>
                       </div>
