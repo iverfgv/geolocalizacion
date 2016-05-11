@@ -17,15 +17,15 @@ class EmpresaController extends Controller
 
   public function index()
   {
-            $tipoempre = \App\tipoempresas::All();
-            $flag=1;
+          	$tipoempre = \App\tipoempresas::All();
+        		$flag=1;
 
 
           $empresa = DB::table('empresas')
-          ->join('ubicacionesempresas', 'empresas.id', '=', 'ubicacionesempresas.empresas_id')
+          ->leftjoin('ubicacionesempresas', 'empresas.id', '=', 'ubicacionesempresas.empresas_id')
           ->join('tiposempresas', 'empresas.tiposempresas_id', '=', 'tiposempresas.id')
           ->select(DB::raw('empresas.*, tiposempresas.tipoempresa as tipempresa, count(ubicacionesempresas.empresas_id) as ubi'))
-          ->groupBy('empresas.empresa')
+          ->groupBy('empresas.empresa','empresas.razonsocial','empresas.tiposempresas_id')
           ->paginate(10);
 
 
@@ -47,15 +47,22 @@ class EmpresaController extends Controller
       $idempre = $request['empresa'];
       $empresaid = DB::table('empresas')
         ->select('empresas.id')
-        ->where('empresas.empresa','=',$idempre)->first();
+        ->whereempresa($request['empresa'])
+        ->whererazonsocial($request['razon'])
+        ->wheretiposempresas_id($request['tipoempresa'])->first();
        
-      foreach ($valores as $valor) 
-      {
-        \App\ubicacionempresa::create([
-            'ubicaciones_id'=>$valor,
-            'empresas_id'=>$empresaid->id,
-          ]); 
-     }
+          
+          if(strlen($idubis)>0)
+          {
+               foreach ($valores as $valor) 
+            
+            {
+              \App\ubicacionempresa::create([
+                  'ubicaciones_id'=>$valor,
+                  'empresas_id'=>$empresaid->id,
+                ]); 
+            }
+          }
 
         Session::flash('message','Empresa Creada Correctamente');     
         return redirect('/empresas');
@@ -63,13 +70,56 @@ class EmpresaController extends Controller
 
   public function delete($id)
   { 
-        try
-       {
-         \App\empresas::destroy($id);
-       }
+    //dd($id);
+      try{
+          $unicaciones = DB::table('ubicacionesempresas')
+              ->select('ubicacionesempresas.id')
+              ->whereempresas_id($id)->first();
+          try
+          {   
+            if($unicaciones!=null)
+            {
+                $sql = "delete from ubicacionesempresas where empresas_id = ".$id;        
+                $eliminar = DB::select(DB::raw($sql));              
+            }
+          }
+            catch(\Illuminate\Database\QueryException $e)
+         {
+         }
+
+
+         /*****************/
+        $accesos = DB::table('accesos')
+              ->select('accesos.id')
+              ->where('accesos.empresas_id','=',$id)->first();
+
+       try
+          {   
+            if($accesos!=null)
+            {
+                $sql = "delete from accesos where empresas_id = ".$id;        
+                $eliminar = DB::select(DB::raw($sql));              
+            }
+          }
+          catch(\Illuminate\Database\QueryException $e)
+          {
+          }
+
+      
+          try
+          {
+           
+                 $sq = "delete from empresas where id=".$id;        
+                        $elimina= DB::select(DB::raw($sq));  
+          }
        catch(\Illuminate\Database\QueryException $e)
        {
-            Session::flash('message-error','No se a Podido Eliminar Empresa');    
+       }
+     }
+
+      catch(\Illuminate\Database\QueryException $e)
+       {
+        Session::flash('message-error','Empresa no se ha Eliminado Correctamente');    
             return redirect('/empresas');
        }
             
@@ -87,9 +137,17 @@ class EmpresaController extends Controller
             $Empresa = \App\empresas::find($id);
             $Empresa->fill($request->all());
             $Empresa->save();
-           
-            $sql = "delete from ubicacionesempresas where empresas_id=".$id;        
+            try
+       {
+           $sql = "delete from ubicacionesempresas where empresas_id=".$id;        
             $eliminar = DB::select(DB::raw($sql));
+       }
+       catch(\Illuminate\Database\QueryException $e)
+       {
+           
+       }
+
+           
             
           if(strlen($idubis)>0)
           {

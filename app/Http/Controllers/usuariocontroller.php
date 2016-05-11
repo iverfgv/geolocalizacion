@@ -71,7 +71,7 @@ class usuariocontroller extends Controller
 
         catch(\Illuminate\Database\QueryException $e)
         {
-            Session::flash('message','No se a Podido Eliminar el Usuario');    
+            Session::flash('message-error','No se a Podido Eliminar el Usuario');    
             return redirect('/usuarios');
         }
       }

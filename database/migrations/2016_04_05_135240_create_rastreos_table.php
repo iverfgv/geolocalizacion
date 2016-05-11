@@ -19,12 +19,11 @@ class CreateRastreosTable extends Migration
             $table->dateTime('fecha');
             $table->text('firma');
             $table->tinyInteger('entrada');
-            $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->integer('usuarios_id')->unsigned();
+            $table->foreign('usuarios_id')->references('id')->on('usuarios');
             $table->integer('ubicaciones_id')->unsigned();
             $table->foreign('ubicaciones_id')->references('id')->on('ubicaciones');
             $table->string('placas',100);
-            $table->string('autorizadopor',100);
         });
     }
 

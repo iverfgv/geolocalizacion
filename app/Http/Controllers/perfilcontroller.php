@@ -88,7 +88,7 @@ class perfilcontroller extends Controller
 
         catch(\Illuminate\Database\QueryException $e)
         {
-            Session::flash('message','No se a Podido Eliminar el Perfil');    
+            Session::flash('message-error','No se a Podido Eliminar el Perfil');    
             return redirect('/perfiles');
         }
     }

@@ -14,9 +14,8 @@ class CreateTipoempresasTable extends Migration
     {
         Schema::create('tiposempresas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipoempresa',100);
             $table->tinyInteger('cliente');
-            $table->tinyInteger('provedor');
+            $table->tinyInteger('proveedor');
             $table->tinyInteger('activo');
         });
     }

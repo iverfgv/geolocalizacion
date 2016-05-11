@@ -1,4 +1,4 @@
-@include('includes.header')
+﻿@include('includes.header')
 <?php $date = date('Y-m-d'); ?>
 <div class="content-page">
     <!-- Start content -->
