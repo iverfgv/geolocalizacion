@@ -419,4 +419,60 @@
                 });
             };
 ////////////////////////////////////////////////////////////////////////////
+ $(document).ready(function(){
+                fn_dar_eliminar();
+                $("#frm_usu").validate();
+               
+            });
+           
+           var arreglo = [];
+           function limpiar(){
+            $('#grilla tbody tr').remove();
+
+           }
+
+
+           function fn_agregareditar(){
+            
+            var sel2 = document.getElementById('valor_edit');
+             index= sel2.options[sel2.selectedIndex].text;
+                cadena = "<tr id='quit2'>";
+                cadena = cadena + "<td id='idvalues'>"+ $("#valor_edit").val() + "</td>";
+                cadena = cadena + "<td>"+"| " +sel2.options[sel2.selectedIndex].text + "</td>";
+                cadena = cadena + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
+         
+                $("#grillaeditar tbody").append(cadena);
+                arreglo = [];
+                $('#grillaeditar tbody tr').each(function(){
+                    variables =$(this).find("td[id='idvalues']").text()
+                    arreglo.push(variables);
+                });
+                console.log("agregar");
+                 console.log(arreglo);
+                 $('#idubiseditar').val(arreglo);
+                fn_dar_eliminareditar();
+                
+                
+            };
+            
+            function fn_dar_eliminareditar(){
+
+                $("a.elimina").click(function(){
+                    id = $(this).parents("tr").find("td").eq(0).html();
+                   
+                        $(this).parents("tr").fadeOut("normal", function(){
+                            $(this).remove();
+                                  arreglo=[];
+                $('#grillaeditar tbody tr').each(function(){
+                    variables =$(this).find("td[id='idvalues']").text()
+                    arreglo.push(variables);
+                });
+                console.log("eliminar");
+                console.log(arreglo);
+                $('#idubiseditar').val(arreglo);
+                           
+                        })
+                    
+                });
+            };
 </script>
