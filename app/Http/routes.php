@@ -19,7 +19,6 @@ use App\Http\Requests;
 */
 
 
-
 ////////////ACCESO-ECOPLAST///////////////////
 Route::resource('accesos','AccesosController');       
 Route::get('accesos','AccesosController@index'); 
