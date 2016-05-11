@@ -34,7 +34,7 @@
                               </ol>
                           </div>
                       </div>
-                      <button class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#add-category">ALTA EMPRESAS</button>
+                      <button  onclick="javascript: limpiar();"class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#add-category">ALTA EMPRESAS</button>
 
                       <p class="text-muted m-b-30 font-13"></p>
                       <!-- Inicia Tabla -->
@@ -60,6 +60,7 @@
                                     @foreach($empresa as $emp)
                                         <tr id='{{ $emp->id }}' data-empresa='{{ $emp->empresa }}' data-razon='{{ $emp->razonsocial }}' data-tipo='{{ $emp->tiposempresas_id }}' data-ubi='{{ $emp->ubi }}'
                                         data-tipoem='{{ $emp->tipempresa }}'>
+                                    <input type="hidden" name="id" id='v1{{ $emp->id }}' value={{ $emp->id }}>
                                             <td>{{ $emp->empresa }} </td>
                                             <td>{{ $emp->razonsocial }}</td>
                                             <td>{{ $emp->tipempresa }}</td>
@@ -77,10 +78,11 @@
                                                 <span data-toggle="modal" data-target="#detalle-category">
                                                 <i class="fa fa-file-text-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></i>
                                                 </span>
-                                                <span data-toggle="modal" data-target="#edit-category">
-                                                <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
-                                                </i>
-                                                </span> 
+                                            
+                                                <span  data-toggle="modal" data-target="#edit-category">
+                                                <div href="javascript:;" onclick="realizaProceso($('#v1{{ $emp->id }}').val());" class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
+                                                </div></span>
+                                         
                                                 {!!link_to('empresas/empresadel/'.$emp->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
                                             </td>
                                         </tr>
@@ -88,7 +90,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                <div class="text-right">{{$empresa->render()}} </div>
                             </div>
                         </div>
                     </div>
@@ -130,7 +132,7 @@
                         </div>
                         <div class="col-md-8">
                                 <label class="control-label">Ubicacion</label>
-                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','ubicacion'),null,['name'=>'valor_uno','id'=>'valor_uno', 'class'=>'form-control form-white','required'] )!!}
+                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','id'),null,['name'=>'valor_uno','id'=>'valor_uno', 'class'=>'form-control form-white','required'] )!!}
                         </div> 
                         <div class="col-md-3">
                          <label class="control-label"></label>
@@ -144,9 +146,10 @@
                             <table id="grilla" class="lista">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                
+                                        <th>ID |</th>
+                                        <th>Ubicación</th>
                                     </tr>
+                                    
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -177,6 +180,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title"><strong>Editar</strong> empresas</h4>
+                
             </div>
             <div class="modal-body">
                 <form role="form">
@@ -198,6 +202,31 @@
                             <label class="control-label">Tipo de empresa</label>
                             {!!Form::select('tiposempresas_id', \App\tipoempresas::lists('tipoempresa','id'),null,['id'=>'tipotag','class'=>'form-control form-white','required'] )!!}
                         </div>
+                        <div class="col-md-8">
+                                <label class="control-label">Ubicacion</label>
+                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','id'),null,['name'=>'valor_edit','id'=>'valor_edit', 'class'=>'form-control form-white','required'] )!!}
+                        </div> 
+                        <div class="col-md-3">
+                         <label class="control-label"></label>
+                            <button onclick="javascript: fn_agregareditar();" type="button" name="agregareditar" value="Agregareditar" id="agregareditar" class="btn btn-primary waves-effect posi">Agregar</button>
+                        </div>
+                        <div class="col-md-12">
+                          <hr>
+                          <p>Ubicacion Agregada:</p>
+                          </div>
+                        <div class="col-md-12 scrolltabla">
+                            <table id="grillaeditar" class="lista">
+                                <thead>
+                                    <tr>
+                                        <th>ID |</th>
+                                        <th>Ubicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="quit">
+                                </tbody>
+                            </table>
+                        </div>  
+                          <input type="hidden" name="ubicaciones" id="idubiseditar">
                         
                     </div>
                 </form>
@@ -221,8 +250,9 @@
                 <h4 class="modal-title"><strong>Detalle</strong> empresa</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                
                     <form role="form">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">ID: </label>
@@ -255,7 +285,7 @@
 @include('includes.footer')
 
  <script type="text/javascript">
-         $("tr").click(function() {
+         $("#datatable-buttons tbody tr").click(function() {
                 var ID = $(this).attr("id");
                 var empresa= $(this).attr('data-empresa'); 
                 var razon=$(this).attr('data-razon');
@@ -268,7 +298,8 @@
                 $('#razontag').val(razon);
                 $('#tipotag').val(tipo);
                 $('#ubicatag').val(ubica);
-
+                    console.log(ID);
+                    console.log(empresa);
                 ///lavels
                 $('#idlavel').text(ID); 
                 $('#nomlavel').text(empresa);
@@ -279,31 +310,87 @@
 </script>
 
 <script type="text/javascript">
-    
+   function realizaProceso(id)
+   {
+            var parametros = {
+                "ide" : id,
+                };
+            $.ajax({
+                data:  parametros,
+                url:   'obtenerid',
+                type:  'post',
+                beforeSend: function () {
+                       
+                },
+                success:  function (data) {
+                    var i=0;
+                    arreglo=[];
+                  $( "tbody #quit" ).remove();
+                  $( "tbody #iquit2" ).remove();
+                  $( ".elimina" ).remove();
+                    for (datas in data.datos) 
+                    { 
+                           console.log("data "+data.datos[i].ubicaciones_id);
+                         cadena2= "<tr id='quit'><td id='idvalues'>"+data.datos[i].ubicaciones_id+"</td><td>"+"| "+data.datos[i].ubicacion+"</td><td><a class='elimina'><img src='delete.png' /></a></td></tr>";
+                        $("#grillaeditar tbody").append(cadena2);
+                        i++;
+                    };
+                    fn_dar_eliminareditar();
+                        cadena2=null;
+                        $("#grillaeditar tbody").append(cadena2);
+
+                     $('#grillaeditar tbody tr').each(function(){
+                        variables =$(this).find("td[id='idvalues']").text()
+                        arreglo.push(variables);
+                      });
+                     console.log(arreglo);
+                 $('#idubiseditar').val(arreglo);
+                  
+                   
+                    
+                      
+                    
+                },error:  function (data)
+                {
+                    console.log("error data");
+                }
+                
+
+            });
+   
+
+    }
+/////////////////////////////////////////////////////////////
     $(document).ready(function(){
                 fn_dar_eliminar();
                 fn_cantidad();
                 $("#frm_usu").validate();
+               
             });
+           
+           var arreglo = [];
+           function limpiar(){
+            $('#grilla tbody tr').remove();
+
+           }
+
+
+           function fn_agregar(){
             
-            function fn_cantidad(){
-                cantidad = $("#grilla tbody").find("tr").length;
-                $("#span_cantidad").html(cantidad);
-            };
-            
-            function fn_agregar(){
-                var arreglo = [];
-                  
-                cadena = "<tr>";
+            var sel = document.getElementById('valor_uno');
+             index= sel.options[sel.selectedIndex].text;
+                cadena = "<tr id='quit2'>";
                 cadena = cadena + "<td id='idvalues'>"+ $("#valor_uno").val() + "</td>";
+                cadena = cadena + "<td>"+"| " +sel.options[sel.selectedIndex].text + "</td>";
                 cadena = cadena + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
          
                 $("#grilla tbody").append(cadena);
-
+                arreglo = [];
                 $('#grilla tbody tr').each(function(){
                     variables =$(this).find("td[id='idvalues']").text()
                     arreglo.push(variables);
                 });
+                console.log("agregar");
                  console.log(arreglo);
                  $('#idubis').val(arreglo);
                 fn_dar_eliminar();
@@ -312,17 +399,24 @@
             };
             
             function fn_dar_eliminar(){
+
                 $("a.elimina").click(function(){
                     id = $(this).parents("tr").find("td").eq(0).html();
                    
                         $(this).parents("tr").fadeOut("normal", function(){
                             $(this).remove();
+                                  arreglo=[];
+                $('#grilla tbody tr').each(function(){
+                    variables =$(this).find("td[id='idvalues']").text()
+                    arreglo.push(variables);
+                });
+                console.log("eliminar");
+                console.log(arreglo);
+                $('#idubis').val(arreglo);
                            
                         })
                     
                 });
             };
-
-
-
+////////////////////////////////////////////////////////////////////////////
 </script>
