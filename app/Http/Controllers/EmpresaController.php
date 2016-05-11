@@ -17,8 +17,8 @@ class EmpresaController extends Controller
 
   public function index()
   {
-          	$tipoempre = \App\tipoempresas::All();
-        		$flag=1;
+            $tipoempre = \App\tipoempresas::All();
+            $flag=1;
 
 
           $empresa = DB::table('empresas')

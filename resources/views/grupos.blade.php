@@ -72,7 +72,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                    <div style="text-align: right;">{{$grupos->render()}}</div>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,6 @@ var factory = function( $, DataTable ) {
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
-
 } );
 
 

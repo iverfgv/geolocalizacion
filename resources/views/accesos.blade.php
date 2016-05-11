@@ -83,8 +83,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
-                            </div>
+                                    <div style="text-align: right;">{{$Accesos->render()}}</div>
+                            </div>  
                         </div>
                     </div>
                     <!-- Termina Tabla -->

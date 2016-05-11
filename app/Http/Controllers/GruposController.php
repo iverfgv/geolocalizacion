@@ -20,7 +20,7 @@ class GruposController extends Controller
     {
         $grupos = DB::table('grupos')
           ->select('grupos.*')
-          ->get();
+          ->paginate(10);
         return view('/grupos',compact('grupos'));
     }
 

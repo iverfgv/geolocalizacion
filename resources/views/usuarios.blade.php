@@ -91,7 +91,7 @@
                                     </tbody>
                                 @endforeach
                                 </table>
-
+                                <div style="text-align: right;">{{$usuarios->render()}}</div>
                             </div>
                         </div>
                     </div>

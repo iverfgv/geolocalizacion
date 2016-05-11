@@ -45,6 +45,7 @@ Route::resource('empresas','EmpresaController');
 Route::get('empresas','EmpresaController@index'); 
 Route::get('empresas/empresadel/{id}','EmpresaController@delete');
 
+
 Route::post('obtenerid', function(Request $request)
 {
  		$idempresa =$request->input('ide');

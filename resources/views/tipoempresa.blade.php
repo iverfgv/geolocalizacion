@@ -80,7 +80,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                   <div style="text-align: right;">{{$tipoempresa->render()}}</div>
                             </div>
                         </div>
                     </div>
