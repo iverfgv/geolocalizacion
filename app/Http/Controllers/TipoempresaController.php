@@ -11,6 +11,10 @@ use Session;
 
 class TipoempresaController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
     public function index()
     {
     	$flag=1;

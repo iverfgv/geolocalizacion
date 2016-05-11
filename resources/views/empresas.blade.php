@@ -33,11 +33,10 @@
 
                               </ol>
                           </div>
-                      </div> <p class="text-muted m-b-30 font-13"></p>
-                      <button class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#add-category">ALTA EMPRESAS</button>
+                      </div>
+                      <button  onclick="javascript: limpiar();"class="btn btn-default waves-effect waves-light" data-toggle="modal" data-target="#add-category">ALTA EMPRESAS</button>
 
-
-                   
+                      <p class="text-muted m-b-30 font-13"></p>
                       <!-- Inicia Tabla -->
                       <div class="row">
                         <div class="col-sm-12">
@@ -52,16 +51,16 @@
                                             <th>Razon Social</th>
                                             <th>Tipo de empresa</th>
                                             <th># Ubicaciones</th>
-                                            <th colspan="3">Acciones</th>
+                                            <th>Acciones</th>
                                             
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                     @foreach($empresa as $emp)
-                                    <input type="hidden" name="id" id={{ $emp->id }} value={{ $emp->id }}>
                                         <tr id='{{ $emp->id }}' data-empresa='{{ $emp->empresa }}' data-razon='{{ $emp->razonsocial }}' data-tipo='{{ $emp->tiposempresas_id }}' data-ubi='{{ $emp->ubi }}'
                                         data-tipoem='{{ $emp->tipempresa }}'>
+                                    <input type="hidden" name="id" id='v1{{ $emp->id }}' value={{ $emp->id }}>
                                             <td>{{ $emp->empresa }} </td>
                                             <td>{{ $emp->razonsocial }}</td>
                                             <td>{{ $emp->tipempresa }}</td>
@@ -79,14 +78,11 @@
                                                 <span data-toggle="modal" data-target="#detalle-category">
                                                 <i class="fa fa-file-text-o" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"></i>
                                                 </span>
-                                            </td>
-                                            <td>
+                                            
                                                 <span  data-toggle="modal" data-target="#edit-category">
-                                                <div href="javascript:;" onclick="realizaProceso($('#{{ $emp->id }}').val());" class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
-                                                </div>
-                                                </span> 
-                                                </td>
-                                                <td>
+                                                <div href="javascript:;" onclick="realizaProceso($('#v1{{ $emp->id }}').val());" class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
+                                                </div></span>
+                                         
                                                 {!!link_to('empresas/empresadel/'.$emp->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
                                             </td>
                                         </tr>
@@ -94,7 +90,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                <div class="text-right">{{$empresa->render()}} </div>
                             </div>
                         </div>
                     </div>
@@ -136,7 +132,7 @@
                         </div>
                         <div class="col-md-8">
                                 <label class="control-label">Ubicacion</label>
-                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','ubicacion'),null,['name'=>'valor_uno','id'=>'valor_uno', 'class'=>'form-control form-white','required'] )!!}
+                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','id'),null,['name'=>'valor_uno','id'=>'valor_uno', 'class'=>'form-control form-white','required'] )!!}
                         </div> 
                         <div class="col-md-3">
                          <label class="control-label"></label>
@@ -150,9 +146,10 @@
                             <table id="grilla" class="lista">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                
+                                        <th>ID |</th>
+                                        <th>Ubicación</th>
                                     </tr>
+                                    
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -207,7 +204,7 @@
                         </div>
                         <div class="col-md-8">
                                 <label class="control-label">Ubicacion</label>
-                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','ubicacion'),null,['name'=>'valor_edit','id'=>'valor_edit', 'class'=>'form-control form-white','required'] )!!}
+                                {!!Form::select('tipoempresa', \App\ubicaciones::lists('ubicacion','id'),null,['name'=>'valor_edit','id'=>'valor_edit', 'class'=>'form-control form-white','required'] )!!}
                         </div> 
                         <div class="col-md-3">
                          <label class="control-label"></label>
@@ -221,8 +218,8 @@
                             <table id="grillaeditar" class="lista">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                
+                                        <th>ID |</th>
+                                        <th>Ubicación</th>
                                     </tr>
                                 </thead>
                                 <tbody id="quit">
@@ -288,7 +285,7 @@
 @include('includes.footer')
 
  <script type="text/javascript">
-         $("tr").click(function() {
+         $("#datatable-buttons tbody tr").click(function() {
                 var ID = $(this).attr("id");
                 var empresa= $(this).attr('data-empresa'); 
                 var razon=$(this).attr('data-razon');
@@ -301,7 +298,8 @@
                 $('#razontag').val(razon);
                 $('#tipotag').val(tipo);
                 $('#ubicatag').val(ubica);
-
+                    console.log(ID);
+                    console.log(empresa);
                 ///lavels
                 $('#idlavel').text(ID); 
                 $('#nomlavel').text(empresa);
@@ -312,12 +310,8 @@
 </script>
 
 <script type="text/javascript">
-    
-
    function realizaProceso(id)
    {
-       
-       
             var parametros = {
                 "ide" : id,
                 };
@@ -332,15 +326,16 @@
                     var i=0;
                     arreglo=[];
                   $( "tbody #quit" ).remove();
+                  $( "tbody #iquit2" ).remove();
                   $( ".elimina" ).remove();
                     for (datas in data.datos) 
                     { 
-                           console.log("data "+data.datos[i].ubicacion);
-                         cadena2= "<tr id='quit'><td id='idvalues'>"+data.datos[i].ubicacion+"</td><td><a class='elimina'><img src='delete.png' /></a></td></tr>";
+                           console.log("data "+data.datos[i].ubicaciones_id);
+                         cadena2= "<tr id='quit'><td id='idvalues'>"+data.datos[i].ubicaciones_id+"</td><td>"+"| "+data.datos[i].ubicacion+"</td><td><a class='elimina'><img src='delete.png' /></a></td></tr>";
                         $("#grillaeditar tbody").append(cadena2);
                         i++;
                     };
-                    fn_dar_eliminar();
+                    fn_dar_eliminareditar();
                         cadena2=null;
                         $("#grillaeditar tbody").append(cadena2);
 
@@ -368,12 +363,25 @@
 /////////////////////////////////////////////////////////////
     $(document).ready(function(){
                 fn_dar_eliminar();
+                fn_cantidad();
+                $("#frm_usu").validate();
                
             });
-                  var arreglo = [];
+           
+           var arreglo = [];
+           function limpiar(){
+            $('#grilla tbody tr').remove();
+
+           }
+
+
            function fn_agregar(){
-                cadena = "<tr>";
+            
+            var sel = document.getElementById('valor_uno');
+             index= sel.options[sel.selectedIndex].text;
+                cadena = "<tr id='quit2'>";
                 cadena = cadena + "<td id='idvalues'>"+ $("#valor_uno").val() + "</td>";
+                cadena = cadena + "<td>"+"| " +sel.options[sel.selectedIndex].text + "</td>";
                 cadena = cadena + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
          
                 $("#grilla tbody").append(cadena);
@@ -411,63 +419,60 @@
                 });
             };
 ////////////////////////////////////////////////////////////////////////////
- var v="";
-            
-
-           
-            $(document).ready(function(){
+ $(document).ready(function(){
                 fn_dar_eliminar();
-                fn_cantidad();
                 $("#frm_usu").validate();
+               
             });
-            
-            function fn_cantidad(){
-                cantidad = $("#grillaeditar tbody").find("tr").length;
-                $("#span_cantidad").html(cantidad);
-            };
-            
-            
-            function fn_agregareditar(){
+           
+           var arreglo = [];
+           function limpiar(){
+            $('#grilla tbody tr').remove();
 
-                var arreglo = [];
-                  
-                cadena2 = "<tr>";
-                cadena2 = cadena2 + "<td id='idvalues'>"+ $("#valor_edit").val() + "</td>";
-                cadena2 = cadena2 + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
+           }
+
+
+           function fn_agregareditar(){
+            
+            var sel2 = document.getElementById('valor_edit');
+             index= sel2.options[sel2.selectedIndex].text;
+                cadena = "<tr id='quit2'>";
+                cadena = cadena + "<td id='idvalues'>"+ $("#valor_edit").val() + "</td>";
+                cadena = cadena + "<td>"+"| " +sel2.options[sel2.selectedIndex].text + "</td>";
+                cadena = cadena + "<td><a class='elimina'><img src='delete.png' /></a></td></tr>";
          
-                $("#grillaeditar tbody").append(cadena2);
-                 arreglo = [];
-
+                $("#grillaeditar tbody").append(cadena);
+                arreglo = [];
                 $('#grillaeditar tbody tr').each(function(){
                     variables =$(this).find("td[id='idvalues']").text()
                     arreglo.push(variables);
                 });
+                console.log("agregar");
                  console.log(arreglo);
                  $('#idubiseditar').val(arreglo);
-                fn_dar_eliminar();
-                fn_cantidad();
+                fn_dar_eliminareditar();
+                
                 
             };
             
-            function fn_dar_eliminar(){
+            function fn_dar_eliminareditar(){
+
                 $("a.elimina").click(function(){
                     id = $(this).parents("tr").find("td").eq(0).html();
                    
                         $(this).parents("tr").fadeOut("normal", function(){
                             $(this).remove();
-                            arreglo=[];
-                            s=null;
+                                  arreglo=[];
                 $('#grillaeditar tbody tr').each(function(){
                     variables =$(this).find("td[id='idvalues']").text()
                     arreglo.push(variables);
                 });
                 console.log("eliminar");
                 console.log(arreglo);
+                $('#idubiseditar').val(arreglo);
                            
                         })
                     
                 });
             };
-
-
 </script>

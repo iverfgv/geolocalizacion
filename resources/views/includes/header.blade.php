@@ -7,7 +7,7 @@
         <link rel="shortcut icon" href="">
 
         <title>Ecoplast</title>
-        
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
     
         
         
