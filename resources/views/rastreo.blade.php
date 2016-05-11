@@ -1,4 +1,4 @@
-@include('includes.header')
+﻿@include('includes.header')
 <?php $date = date('Y-m-d'); ?>
 <div class="content-page">
     <!-- Start content -->
@@ -65,7 +65,7 @@
                                         if($rastreo->entrada==0){
                                             $movi='Salida';
                                             }?>
-                                           <tr id='{{ $rastreo->id }}' data-fecha='{{ $fecha }}' data-placas='{{ $rastreo->placas }}' data-embarque='{{ $rastreo->embarques_id }}' data-usuari='{{ $rastreo->usuario_id }}' data-ubica='{{ $rastreo->ubicaciones_id }}' data-entrada='{{ $rastreo->entrada }}'>
+                                           <tr id='{{ $rastreo->id }}' data-fecha='{{ $fecha }}' data-placas='{{ $rastreo->placas }}' data-embarque='{{ $rastreo->embarques_id }}' data-usuari='{{ $rastreo->usuarios_id }}' data-ubica='{{ $rastreo->ubicaciones_id }}' data-entrada='{{ $rastreo->entrada }}'>
 
                                             <td>{{ $rastreo->id }}</td>
                                             <td>{{ $fecha }}</td>
@@ -86,7 +86,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                    <div style="text-align: right;">{{$rastreos->render()}}</div>
                             </div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
                         </div>
                          <div class="col-md-6">
                             <label class="control-label">Usuario</label>
-                            {!!Form::select('usuario_id', \App\usuarios::lists('usuario','id'),null,['id'=>'usuariotag','class'=>'form-control form-white','required'] )!!}
+                            {!!Form::select('usuarios_id', \App\usuarios::lists('usuario','id'),null,['id'=>'usuariotag','class'=>'form-control form-white','required'] )!!}
                         </div>
                          <div class="col-md-5">
                             <label class="control-label">Ubicacion</label>

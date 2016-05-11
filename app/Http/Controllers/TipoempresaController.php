@@ -46,7 +46,7 @@ class TipoempresaController extends Controller
         \App\tipoempresas::create([
                'tipoempresa'=>$request['tipoemp'],
                'cliente'=>$cliente,
-               'provedor'=>$provedor,
+               'proveedor'=>$provedor,
                'activo'=>1,
               ]);
         Session::flash('message','Tipo de Empresa Creado Correctamente');     
@@ -82,7 +82,7 @@ class TipoempresaController extends Controller
 			$provedor=1;
 		}
 		
-		DB::update('update tiposempresas set tipoempresa = ?, cliente = ?, provedor = ?  where id = ? ',array($request['tipoempresa'], $cliente, $provedor, $id));
+		DB::update('update tiposempresas set tipoempresa = ?, cliente = ?, proveedor = ?  where id = ? ',array($request['tipoempresa'], $cliente, $provedor, $id));
                
             Session::flash('message','Tipo empresa Actualizada Correctamente');     
             return redirect('/tipoempresa');

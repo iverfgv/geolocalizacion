@@ -56,7 +56,7 @@ class ubicacionescontroller extends Controller
 
         catch(\Illuminate\Database\QueryException $e)
         {
-            Session::flash('message','No se a Podido Eliminar la Ubicacion');    
+            Session::flash('message-error','No se a Podido Eliminar la Ubicacion');    
             return redirect('/ubicaciones');
         }
     }

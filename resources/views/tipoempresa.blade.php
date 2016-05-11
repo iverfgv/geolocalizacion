@@ -50,7 +50,7 @@
                                     <tbody>
                                     @foreach($tipoempresa as $tipo)
                                      
-                                           <tr id='{{ $tipo->id }}' data-tipo='{{ $tipo->tipoempresa }}' data-cliente='{{ $tipo->cliente }}' data-provedor='{{ $tipo->provedor }}'>
+                                           <tr id='{{ $tipo->id }}' data-tipo='{{ $tipo->tipoempresa }}' data-cliente='{{ $tipo->cliente }}' data-provedor='{{ $tipo->proveedor }}'>
 
                                             <td>{{ $tipo->id }}</td>
                                             <td>{{ $tipo->tipoempresa }}</td>
@@ -59,7 +59,7 @@
                                             @else
                                             <td><i class="fa fa-times-circle-o fa-2x"></i></td>
                                             @endif
-                                            @if($tipo->provedor==1)
+                                            @if($tipo->proveedor==1)
                                             <td><i class="fa fa-check-circle-o fa-2x"></i></td>
                                             @else
                                             <td><i class="fa fa-times-circle-o fa-2x"></i></td>

@@ -1,4 +1,4 @@
-@include('includes.header')
+﻿@include('includes.header')
 <?php $date = date('Y-m-d'); ?>
 
 
@@ -87,7 +87,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                     <div style="text-align: right;">{{$embarques->render()}}</div>
                             </div>
                         </div>
                       </div>
