@@ -5,6 +5,8 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers:  'Content-Type, Accept, Authorization, X-Requested-With'");
 header('Access-Control-Allow-Headers: Origin, Content-Type, *');
 
+use Illuminate\Http\Request;
+use App\Http\Requests;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -42,6 +44,27 @@ Route::get('tipoempresa/tipoempresadel/{id}','TipoempresaController@delete');
 Route::resource('empresas','EmpresaController');       
 Route::get('empresas','EmpresaController@index'); 
 Route::get('empresas/empresadel/{id}','EmpresaController@delete');
+
+
+Route::post('obtenerid', function(Request $request)
+{
+ 		$idempresa =$request->input('ide');
+
+          $sql = "select ubicacionesempresas.*, ubicaciones.ubicacion from ubicacionesempresas join ubicaciones on ubicaciones.id=ubicacionesempresas.ubicaciones_id 
+          where ubicacionesempresas.empresas_id =".$idempresa;
+
+
+        
+     $datos = DB::select(DB::raw($sql));
+
+     
+	
+	return Response::json( array(
+		'sms' => " Parametro AJAX y JSON", 
+		'datos' => $datos, 
+		));
+
+});
 
 /////////////RASTREOS-ECOPLAST///////////////////
 //Route::resource('rastreo','EmpresaController');       

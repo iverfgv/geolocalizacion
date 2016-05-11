@@ -37,10 +37,6 @@
 
 
 
-
-
-
-
                       <!-- Inicia Tabla -->
                       <div class="row">
                         <div class="col-sm-12">
@@ -103,8 +99,7 @@
                                                 <td><i class="fa fa-check-circle-o fa-2x"></i></td>
                                             @else
                                                 <td><i class="fa fa-times-circle-o fa-2x"></i></td>
-                                            @endif
-                                          
+                                            @endif                                          
 
                                             <td class="editbtn">
                                              <span data-toggle="modal" data-target="#detalle-category">
@@ -124,7 +119,9 @@
                                     </tbody>
                                 @endforeach
                                 </table>
+                                <div style="text-align: right;">{{$perfiles->render()}}</div>
 
+                                  
                             </div>
                         </div>
                     </div>

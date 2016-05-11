@@ -22,7 +22,6 @@ class historialcontroller extends Controller
           "where usuarios.activo=1 and usuarios.usuario='".$nombreusuario."' and CAST(rastreo.fecha AS DATE) ='".$fecha."'";       
         
 	      $historial = DB::select(DB::raw($sql));
-
       
          return $historial;
 

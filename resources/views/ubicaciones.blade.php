@@ -94,7 +94,7 @@
                                     </tbody>
                                         @endforeach
                                 </table>
-
+                                <div style="text-align: right;">{{$ubicaciones->render()}}</div>
                             </div>
                         </div>
                     </div>

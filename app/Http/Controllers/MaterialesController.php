@@ -16,7 +16,7 @@ class MaterialesController extends Controller
         $Materiales = DB::table('materiales')
          ->join('grupos', 'grupos.id', '=', 'materiales.grupos_id')
           ->select('materiales.*','grupos.grupo as gruponame')
-          ->get();
+          ->paginate(10);
         return view('/materiales',compact('Materiales'));
     }
 

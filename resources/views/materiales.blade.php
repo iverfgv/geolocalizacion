@@ -74,7 +74,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                    <div style="text-align: right;">{{$Materiales->render()}}</div>
                             </div>
                         </div>
                     </div>

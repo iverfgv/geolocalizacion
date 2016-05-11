@@ -42,7 +42,7 @@ class usuariocontroller extends Controller
             ->join('perfiles','usuarios.perfiles_id','=','perfiles.id')  
             ->join('ubicaciones','usuarios.ubicaciones_id','=','ubicaciones.id')  
             ->select('usuarios.*','perfiles.perfil', 'perfiles.id as perfilid','ubicaciones.ubicacion','ubicaciones.id as ubicacionid')
-            ->get();
+            ->paginate(10);
 
         Session::flash('message','Usuario Agregado Correctamente');  
 
@@ -54,7 +54,7 @@ class usuariocontroller extends Controller
             ->join('perfiles','usuarios.perfiles_id','=','perfiles.id')  
             ->join('ubicaciones','usuarios.ubicaciones_id','=','ubicaciones.id')  
             ->select('usuarios.*','perfiles.perfil', 'perfiles.id as perfilid','ubicaciones.ubicacion','ubicaciones.id as ubicacionid')
-            ->get();
+            ->paginate(10);
            
 	   return view('usuarios',compact('usuarios'));
     }

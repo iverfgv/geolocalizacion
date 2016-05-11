@@ -17,7 +17,7 @@ class TipoempresaController extends Controller
         $tipoempresa = DB::table('tiposempresas')
           ->select('tiposempresas.*')
 		  ->where('tiposempresas.activo','=', $flag)                      
-          ->get();
+      ->paginate(10);
           
 
         return view('/tipoempresa',compact('tipoempresa'));

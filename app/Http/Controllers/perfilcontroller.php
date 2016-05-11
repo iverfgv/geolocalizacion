@@ -64,14 +64,14 @@ class perfilcontroller extends Controller
 	            	]);
 
 	    $perfiles=DB::table('perfiles')
-    				 	 ->select('perfiles.*')->get();
+    				 	 ->select('perfiles.*')->paginate(10);
     	Session::flash('message','Perfil Agregado Correctamente');  
 	    return view('perfiles',compact('perfiles'));
     }
 
     public function index(){
     	 $perfiles=DB::table('perfiles')
-    				 	 ->select('perfiles.*')->get();
+    				 	 ->select('perfiles.*')->paginate(10);
 
 	   return view('perfiles',compact('perfiles'));
     }

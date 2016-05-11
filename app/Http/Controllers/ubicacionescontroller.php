@@ -30,7 +30,7 @@ class ubicacionescontroller extends Controller
 	            	]);
 
 	    $ubicaciones=DB::table('ubicaciones')
-    				 	 ->select('ubicaciones.*')->get();
+    				 	 ->select('ubicaciones.*') ->paginate(10);;
 
     	Session::flash('message','Ubicacion Agregado Correctamente'); 
 
@@ -39,7 +39,7 @@ class ubicacionescontroller extends Controller
 
     public function index(){
     	$ubicaciones=DB::table('ubicaciones')
-    				 	 ->select('ubicaciones.*')->get();
+    				 	 ->select('ubicaciones.*')->paginate(10);;
 
 	   return view('ubicaciones',compact('ubicaciones'));
     }

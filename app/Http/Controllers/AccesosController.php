@@ -15,7 +15,7 @@ class AccesosController extends Controller
         $Accesos = DB::table('accesos')
          ->join('empresas', 'empresas.id', '=', 'accesos.empresas_id')
           ->select('accesos.*','empresas.empresa as nameempresa')
-          ->get();
+          ->paginate(10);
         return view('/accesos',compact('Accesos'));
     }
 
