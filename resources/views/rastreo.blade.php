@@ -79,8 +79,9 @@
                                                     <i class="fa fa-pencil-square-o" title="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
                                                     </i>
                                                 </span> 
-
+                                               @can('verificar-eliminar-supervisor')
                                                {!!link_to('rastreo/rastreodel/'.$rastreo->id, '',array('class'=>'fa fa-ban','style'=>'color:rgb(121,121,121);' , 'title'=>'Eliminar','data-toggle'=>'tooltip', 'data-placement'=>'top', 'data-original-title'=>'Tooltip on top')) !!}
+                                               @endcan
                                             </td>
                                         </tr>
                                     @endforeach

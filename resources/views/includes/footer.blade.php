@@ -26,8 +26,12 @@
 <script type='text/javascript' src="assets/plugins/datatables/jszip.min.js"></script>
 <script type='text/javascript' src="assets/plugins/datatables/pdfmake.min.js"></script>
 <script type='text/javascript' src="assets/plugins/datatables/vfs_fonts.js"></script>
+
+@can('verificar-reportes')
 <script type='text/javascript' src="assets/plugins/datatables/buttons.html5.min.js"></script>
 <script type='text/javascript' src="assets/plugins/datatables/buttons.print.min.js"></script>
+@endcan
+
 <script type='text/javascript' src="assets/plugins/datatables/dataTables.fixedHeader.min.js"></script>
 <script type='text/javascript' src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
 <script type='text/javascript' src="assets/plugins/datatables/responsive.bootstrap.min.js"></script>

@@ -4,7 +4,7 @@
             <!-- Start content -->
 <div class="content">
 <div class="container">
-
+	@can('verificar-dashboard')
                         <!-- Page-Title -->
                         <div class="row">
                             <div class="col-sm-12">
@@ -207,7 +207,7 @@
 			<div id="simple-line-chart" class="ct-chart ct-golden-section"></div>
 		</div>
 	</div>-->        
-
+	
         <div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
@@ -273,8 +273,7 @@
 						    -->
 
                         
-                        
-
+    @endcan
                     </div>
 
        

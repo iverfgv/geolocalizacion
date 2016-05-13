@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\perfiles;
 use Session;
 use DB;
+use Gate;
+use Auth;
 
 class perfilcontroller extends Controller
 {
@@ -16,6 +18,11 @@ class perfilcontroller extends Controller
     }
     
     public function store(Request $request){
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }   
     	$pesaje=0;
     	$supervisor=0;
     	$embarques=0;
@@ -70,6 +77,11 @@ class perfilcontroller extends Controller
     }
 
     public function index(){
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }   
     	 $perfiles=DB::table('perfiles')
     				 	 ->select('perfiles.*')->paginate(10);
 
@@ -78,6 +90,11 @@ class perfilcontroller extends Controller
 
     public function delete($id)
     {
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }   
        try
        {
         perfiles::destroy($id);
@@ -95,6 +112,11 @@ class perfilcontroller extends Controller
 
     public function update(Request $request)
     {   
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }   
     	$id=$request['id'];
     	$perfil=$request['perfil'];
     	$pesaje=0;

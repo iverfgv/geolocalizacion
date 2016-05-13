@@ -87,46 +87,48 @@
         <div class="left side-menu">
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 607px;"><div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 607px;">
                     <!--- Divider -->
+                   
                     <div id="sidebar-menu">
                         <ul>
-
+                         
                           <li class="text-muted menu-title"></li>
-
+                           @can('verificar-dashboard')
                             <li {{{Request::is('dashboard')? 'class=active' :''}}}>
                                     <a class="" href="{{ url('/menu') }}"><i class="fa fa-area-chart"></i> Dashboard</a>
                             </li>
+                            @endcan
 
+                            @can('verificar-modulo-embarques')
                             <li {{{Request::is('embarques')? 'class=active' :''}}}>
                                     <a class="" href="{{ url('/embarques') }}"><i class="fa fa-paper-plane"></i> Embarques</a>
                             </li>
-
+                            @endcan
 
                          
-
+                            @can('verificar-modulo-rastreo')
                             <li {{{Request::is('rastreo')? 'class=active' :''}}}>
                                     <a class="" href="{{ url('/rastreo') }}"><i class="fa fa-map-marker"></i> Rastreo</a>
                             </li>
+                            @endcan
 
-
+                            @can('verificar-administracion') 
                             <li {{{Request::is('empresas')? 'class=active' :''}}}>
                                     <a class="" href="{{ url('/empresas') }}"><i class="fa fa-building-o"></i> Empresas</a>
                             </li>
-
                      
 
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="fa fa-th-list"></i><span> Catalogos </span> </a>
                                 <ul class="list-unstyled">
-
+                                
                                     <li {{{Request::is('perfiles')? 'class=active' :''}}}>
                                     <a class="" href="{{ url('/perfiles') }}">Perfiles</a>
                                     </li>
 
-
                                     <li {{{Request::is('usuarios')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/usuarios') }}">Usuarios</a>
                                     </li>
-
+                     
                                     <li {{{Request::is('ubicaciones')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/ubicaciones') }}">Ubicaciones</a>
                                     </li>
@@ -134,12 +136,16 @@
                                     <li {{{Request::is('tipoempresa')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/tipoempresa') }}">Tipo Empresa</a>
                                     </li>
+
                                     <li {{{Request::is('grupos')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/grupos') }}">Grupos</a>
                                     </li>
+
+                                    
                                      <li {{{Request::is('materiales')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/materiales') }}">Materiales</a>
                                     </li>
+
                                      <li {{{Request::is('accesos')? 'class=active' :''}}}>
                                         <a class="" href="{{ url('/accesos') }}">Accesos</a>
                                     </li>
@@ -147,12 +153,11 @@
                                 </ul>
                             </li>
 
-                            
-
-                        
+                         @endcan
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+                   
                     <div class="clearfix"></div>
                 </div><div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 607px; visibility: visible; background: rgb(220, 220, 220);"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
             </div>

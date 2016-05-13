@@ -9,6 +9,7 @@ use DB;
 use App;
 use Session;
 use Auth;
+use Gate;
 
 class EmbarqueController extends Controller
 {
@@ -19,6 +20,28 @@ class EmbarqueController extends Controller
 
     public function index()
     {
+      $b1=0;
+      $b2=0;
+      $b3=0;
+      $b4=0;
+       if(Gate::denies('verificar-pesaje'))
+       {
+        $b1=1;
+
+       } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }        
+     
         $embarques = DB::table('embarques')
           ->join('materiales', 'materiales.id', '=', 'embarques.materiales_id')
           ->join('usuarios', 'usuarios.id', '=', 'embarques.usuarios_id')
@@ -32,7 +55,26 @@ class EmbarqueController extends Controller
 
      public function store(Request $request)
      {   
-       
+       $b1=0;
+       $b2=0;
+       $b3=0;
+       $b4=0;
+       if(Gate::denies('verificar-pesaje'))
+       {
+        $b1=1;
+       } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
          $fechasistema = date('Y-m-d');
        
         \App\embarques::create([
@@ -54,6 +96,34 @@ class EmbarqueController extends Controller
 
       public function delete($id)
       { 
+        $b1=0;
+        $b2=0;
+        $b3=0;
+        $b4=0;
+        
+        if(Gate::denies('verificar-pesaje'))
+        {
+         $b1=1;
+        } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;}
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
+
+        if($b1==1 && $b2==0 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
 
           try
        {
@@ -71,6 +141,27 @@ class EmbarqueController extends Controller
 
       public function update(Request $request)
       {   
+        $b1=0;
+        $b2=0;
+        $b3=0;
+        $b4=0;
+        
+        if(Gate::denies('verificar-pesaje'))
+        {
+          $b1=1;
+        }  
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
             $id=$request['id'];
             $Embarque = \App\embarques::find($id);
             $Embarque->fill($request->all());

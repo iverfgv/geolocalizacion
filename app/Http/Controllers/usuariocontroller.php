@@ -11,6 +11,7 @@ use App\perfiles;
 use App\ubicaciones;
 use Auth;
 use Redirect;
+use Gate;
 
 class usuariocontroller extends Controller
 {    
@@ -20,6 +21,11 @@ class usuariocontroller extends Controller
     }
    
     public function store(Request $request){
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
      	$activo=0;
 
      	$contrasena=md5($request['contrasena']);		
@@ -50,6 +56,11 @@ class usuariocontroller extends Controller
     }
 
     public function index(){
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
     	 $usuarios = DB::table('usuarios')  
             ->join('perfiles','usuarios.perfiles_id','=','perfiles.id')  
             ->join('ubicaciones','usuarios.ubicaciones_id','=','ubicaciones.id')  
@@ -61,6 +72,11 @@ class usuariocontroller extends Controller
 
      public function delete($id)
      { 
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
         try
         {
             User::destroy($id);
@@ -78,6 +94,11 @@ class usuariocontroller extends Controller
 
     public function update(Request $request)
     { 
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
         $id=$request['id']; 
         $usuario=$request['usuario'];
         $nombre=$request['nombre'];

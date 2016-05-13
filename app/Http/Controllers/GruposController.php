@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use Session;
+use Gate;
+use Auth;
 
 class GruposController extends Controller
 {
@@ -18,6 +20,11 @@ class GruposController extends Controller
   
     public function index()
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }   
         $grupos = DB::table('grupos')
           ->select('grupos.*')
           ->paginate(10);
@@ -27,6 +34,11 @@ class GruposController extends Controller
 
     public function delete($id)
     { 
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }   
     	try
 	     {
          \App\grupos::destroy($id);
@@ -43,6 +55,11 @@ class GruposController extends Controller
 
     public function store(Request $request)
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }   
       \App\grupos::create([
                'grupo'=>$request['grupo'],
                'clave'=>$request['clave'],
@@ -51,8 +68,14 @@ class GruposController extends Controller
         Session::flash('message','Grupo Creado Correctamente');     
         return redirect('/grupos');
     }
-     public function update(Request $request)
+    
+    public function update(Request $request)
     {   
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }   
         $id=$request['id'];
         $grupo = \App\grupos::find($id);
         $grupo->fill($request->all());

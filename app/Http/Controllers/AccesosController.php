@@ -8,10 +8,18 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use Session;
+use Gate;
+use Auth;
+
 class AccesosController extends Controller
 {
     public function index()
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
         $Accesos = DB::table('accesos')
          ->join('empresas', 'empresas.id', '=', 'accesos.empresas_id')
           ->select('accesos.*','empresas.empresa as nameempresa')
@@ -21,6 +29,11 @@ class AccesosController extends Controller
 
     public function delete($id)
     { 
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
     	try
 	     {
          \App\accesos::destroy($id);
@@ -37,6 +50,11 @@ class AccesosController extends Controller
 
     public function store(Request $request)
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
       \App\accesos::create([
                'acceso'=>$request['acceso'],
                'nombre'=>$request['nombre'],
@@ -49,8 +67,13 @@ class AccesosController extends Controller
         return redirect('/accesos');
     }
 
-     public function update(Request $request)
+    public function update(Request $request)
     {   
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
         $id=$request['id'];
         $grupo = \App\accesos::find($id);
         $grupo->fill($request->all());

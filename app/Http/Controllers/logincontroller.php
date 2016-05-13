@@ -23,8 +23,10 @@ class logincontroller extends Controller
         ->whereusuario($nusuario)->wherecontrasena($contrasena)->whereactivo('1')->first();
 
        
-        if($user!=null){
+        if($user!=null)
+        {
             Auth::loginUsingId($user->id);
+            
             return redirect('/menu');
         }
 

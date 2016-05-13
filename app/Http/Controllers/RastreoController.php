@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
 use Session;
+use Gate;
+use Auth;
 
 class RastreoController extends Controller
 {
@@ -16,7 +18,27 @@ class RastreoController extends Controller
 
     public function index()
     {
-             
+      $b1=0;
+      $b2=0;
+      $b3=0;
+      $b4=0;
+       if(Gate::denies('verificar-pesaje'))
+       {
+        $b1=1;
+
+       } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }        
             $flag=1;
             $rastreo = DB::table('rastreo')
               ->select('rastreo.*')
@@ -24,8 +46,28 @@ class RastreoController extends Controller
         return view('/rastreo',['rastreos'=>$rastreo]);
     }
 
-       public function store(Request $request)
-     {   
+    public function store(Request $request)
+    {
+       $b1=0;
+       $b2=0;
+       $b3=0;
+       $b4=0;
+       if(Gate::denies('verificar-pesaje'))
+       {
+        $b1=1;
+       } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }        
         
         \App\rastreo::create([
                'embarques_id'=>$request['embarques'],
@@ -39,8 +81,36 @@ class RastreoController extends Controller
         return redirect('/rastreo');
       }
 
-       public function delete($id)
-    {
+      public function delete($id)
+      {
+        $b1=0;
+        $b2=0;
+        $b3=0;
+        $b4=0;
+        
+        if(Gate::denies('verificar-pesaje'))
+        {
+         $b1=1;
+        } 
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;}
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
+
+        if($b1==1 && $b2==0 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
 
         try
        {
@@ -59,6 +129,27 @@ class RastreoController extends Controller
 
     public function update(Request $request)
     {   
+        $b1=0;
+        $b2=0;
+        $b3=0;
+        $b4=0;
+        
+        if(Gate::denies('verificar-pesaje'))
+        {
+          $b1=1;
+        }  
+
+       if(Gate::denies('verificar-supervisor'))
+       {$b2=1;} 
+       if(Gate::denies('verificar-embarques'))
+       {$b3=1;} 
+       if(Gate::denies('verificar-administracion'))
+       {$b4=1;} 
+       if($b1==1 && $b2==1 && $b3==1 && $b4==1)
+       {
+         Auth::logout();
+         return view('login'); 
+       }     
             $id=$request['id'];
             $Rastreo = \App\rastreo::find($id);
             $Rastreo->fill($request->all());

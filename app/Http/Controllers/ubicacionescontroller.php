@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\ubicaciones;
 use DB;
 use Session;
+use Gate;
+use Auth;
 
 class ubicacionescontroller extends Controller
 {
@@ -16,6 +18,11 @@ class ubicacionescontroller extends Controller
   }
     
 	public function store(Request $request){
+        if(Gate::denies('verificar-administracion'))
+        {
+            Auth::logout();
+            return view('login');
+        }   
 		$activo=0;
 		if($request['activo']=="si")
 		{	
@@ -38,6 +45,11 @@ class ubicacionescontroller extends Controller
     }
 
     public function index(){
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }   
     	$ubicaciones=DB::table('ubicaciones')
     				 	 ->select('ubicaciones.*')->paginate(10);;
 
@@ -46,6 +58,11 @@ class ubicacionescontroller extends Controller
 
     public function delete($id)
     {
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
         try
         {
            ubicaciones::destroy($id);
@@ -63,6 +80,11 @@ class ubicacionescontroller extends Controller
 
     public function update(Request $request)
     { 
+        if(Gate::denies('verificar-administracion'))
+        {
+         Auth::logout();
+         return view('login');
+        }  
         $id=$request['id']; 
         $ubicacion=$request['ubicacion'];
         $clave=$request['clave'];

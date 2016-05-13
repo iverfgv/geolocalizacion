@@ -39,6 +39,7 @@ Route::resource('tipoempresa','TipoempresaController');
 Route::get('tipoempresa','TipoempresaController@index'); 
 Route::get('tipoempresa/tipoempresadel/{id}','TipoempresaController@delete');
 
+/**************************************************************************************************/
 /////////////EMPRESA-ECOPLAST///////////////////
 Route::resource('empresas','EmpresaController');       
 Route::get('empresas','EmpresaController@index'); 

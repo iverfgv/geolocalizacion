@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use Session;
+use Gate;
+use Auth;
 
 class MaterialesController extends Controller
 {
@@ -15,8 +17,13 @@ class MaterialesController extends Controller
   {
       $this->middleware('auth');
   }
-     public function index()
+    public function index()
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
         $Materiales = DB::table('materiales')
          ->join('grupos', 'grupos.id', '=', 'materiales.grupos_id')
           ->select('materiales.*','grupos.grupo as gruponame')
@@ -27,6 +34,11 @@ class MaterialesController extends Controller
 
     public function delete($id)
     { 
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
     	try
 	     {
          \App\materiales::destroy($id);
@@ -45,6 +57,11 @@ class MaterialesController extends Controller
 
     public function store(Request $request)
     {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
       \App\materiales::create([
                'material'=>$request['material'],
                'clave'=>$request['clave'],
@@ -56,8 +73,13 @@ class MaterialesController extends Controller
     }
 
 
-       public function update(Request $request)
-    {   
+    public function update(Request $request)
+    {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }   
         $id=$request['id'];
         $grupo = \App\materiales::find($id);
         $grupo->fill($request->all());

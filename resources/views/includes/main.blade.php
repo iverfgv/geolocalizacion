@@ -98,7 +98,7 @@
                                     <a class="<?php if($this->uri->segment(1)=="rastreo"){echo "active";}?>" href="<?=base_url('rastreo')?>"><i class="fa fa-map-marker"></i> Rastreo</a>
                             </li>
 
-
+                        
                             <li class="<?php if($this->uri->segment(1)=="empresas"){echo "active";}?>">
                                     <a class="<?php if($this->uri->segment(1)=="empresas"){echo "active";}?>" href="<?=base_url('empresas')?>"><i class="fa fa-building-o"></i> Empresas</a>
                             </li>

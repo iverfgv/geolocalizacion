@@ -8,6 +8,8 @@ use DB;
 use App;
 use Auth;
 use Session;
+use Gate;
+use Redirect;
 class EmpresaController extends Controller
 {  
   public function __construct()
@@ -17,6 +19,12 @@ class EmpresaController extends Controller
 
   public function index()
   {
+      if(Gate::denies('verificar-administracion'))
+      {
+        Auth::logout();
+        return view('login');
+      }
+
           	$tipoempre = \App\tipoempresas::All();
         		$flag=1;
 
@@ -35,6 +43,12 @@ class EmpresaController extends Controller
 
   public function store(Request $request)
   {   
+    if(Gate::denies('verificar-administracion'))
+    {
+      Auth::logout();
+      return view('login');
+    }
+
       $idubis = $request['ubicaciones'];
       $valores=explode(",",$idubis);
 
@@ -70,6 +84,11 @@ class EmpresaController extends Controller
 
   public function delete($id)
   { 
+    if(Gate::denies('verificar-administracion'))
+    {
+      Auth::logout();
+      return view('login');
+    }
     //dd($id);
       try{
           $unicaciones = DB::table('ubicacionesempresas')
@@ -129,7 +148,11 @@ class EmpresaController extends Controller
 
   public function update(Request $request)
   {   
-        
+    if(Gate::denies('verificar-administracion'))
+    {
+      Auth::logout();
+      return view('login');
+    }
             $idubis = $request['ubicaciones'];
             $valores=explode(",",$idubis);
 
