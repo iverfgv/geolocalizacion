@@ -212,7 +212,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de Embarques por Dia
+						<i class="fa fa-bar-chart-o fa-fw"></i>Grafica de Embarques por Mes
 						</div> 
 						<br>
 						&nbsp;&nbsp;&nbsp;&nbsp;

@@ -17,6 +17,15 @@ use App\Http\Requests;
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::resource('ruta','rutascontroller');       
+Route::get('rutas','rutascontroller@index'); 
+Route::get('rutas2','rutascontroller@index2'); 
+Route::get('rutas3','rutascontroller@index3'); 
+
+
+
+
+
 
 
 ////////////ACCESO-ECOPLAST///////////////////
@@ -44,6 +53,9 @@ Route::get('tipoempresa/tipoempresadel/{id}','TipoempresaController@delete');
 Route::resource('empresas','EmpresaController');       
 Route::get('empresas','EmpresaController@index'); 
 Route::get('empresas/empresadel/{id}','EmpresaController@delete');
+
+
+
 
 
 Route::post('obtenerid', function(Request $request)

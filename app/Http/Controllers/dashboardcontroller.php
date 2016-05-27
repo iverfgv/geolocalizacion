@@ -21,256 +21,107 @@ class dashboardcontroller extends Controller
         $dataembarques=null;
         $diaunomenor=null; 
         $diadosmayor=null;
-        /**************************** dia uno menor que 100 *******************************/
-        $diaunomenor= "select fecha,count(id) as diaunomenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso<100";    
-        $diaunomenor = DB::select(DB::raw($diaunomenor));
-
-        $diaunomedio = "select fecha,count(id) as diaunomedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso>=100 and peso<1000";   
-        $diaunomedio = DB::select(DB::raw($diaunomedio));
-
-        $diaunomayor = "select fecha,count(id) as diaunomayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 0 day)) and peso>=1000";    
-        $diaunomayor = DB::select(DB::raw($diaunomayor));
-
-        /**************************** dia uno menor que 100 *******************************/
-        $diadosmenor= "select fecha,count(id) as diadosmenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso<100";    
-        $diadosmenor = DB::select(DB::raw($diadosmenor));
-
-        $diadosmedio = "select fecha,count(id) as diadosmedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso>=100 and peso<1000";   
-        $diadosmedio = DB::select(DB::raw($diadosmedio));
-
-        $diadosmayor = "select fecha,count(id) as diadosmayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 1 day)) and peso>=1000";    
-        $diadosmayor = DB::select(DB::raw($diadosmayor));
        
-        /**************************** dia uno menor que 100 *******************************/
-        $diatresmenor= "select fecha,count(id) as diatresmenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso<100";    
-        $diatresmenor = DB::select(DB::raw($diatresmenor));
 
-        $diatresmedio = "select fecha,count(id) as diatresmedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso>=100 and peso<1000";   
-        $diatresmedio = DB::select(DB::raw($diatresmedio));
-
-        $diatresmayor = "select fecha,count(id) as diatresmayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 2 day)) and peso>=1000";    
-        $diatresmayor = DB::select(DB::raw($diatresmayor));
-        /**************************** dia uno menor que 100 *******************************/
-        $diacuatromenor= "select fecha,count(id) as diacuatromenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso<100";    
-        $diacuatromenor = DB::select(DB::raw($diacuatromenor));
-
-        $diacuatromedio = "select fecha,count(id) as diacuatromedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso>=100 and peso<1000";   
-        $diacuatromedio = DB::select(DB::raw($diacuatromedio));
-
-        $diacuatromayor = "select fecha,count(id) as diacuatromayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 3 day)) and peso>=1000";    
-        $diacuatromayor = DB::select(DB::raw($diacuatromayor));
-        /**************************** dia uno menor que 100 *******************************/
-        $diacincomenor= "select fecha,count(id) as diacincomenor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso<100";    
-        $diacincomenor = DB::select(DB::raw($diacincomenor));
-
-        $diacincomedio = "select fecha,count(id) as diacincomedio from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso>=100 and peso<1000";   
-        $diacincomedio = DB::select(DB::raw($diacincomedio));
-
-        $diacincomayor = "select fecha,count(id) as diacincomayor from embarques where cast(embarques.fecha as date) = date(date_sub(curdate(),interval 4 day)) and peso>=1000";   
-        $diacincomayor = DB::select(DB::raw($diacincomayor));
-
-
-        $day1=null;
-        $day2=null;
-        $day3=null;
-        $day4=null;
-        $day5=null;
-
-        foreach ($diaunomenor as $d1){
-             if($d1->fecha!=null)
-             {$day1=$d1->fecha;}
-        }if($day1==null)
-        {
-            foreach ($diaunomedio as $d1){
-             if($d1->fecha!=null)
-             {$day1=$d1->fecha;}
-             }
-        }if($day1==null)
-        {
-            foreach ($diaunomayor as $d1){
-             if($d1->fecha!=null)
-             {$day1=$d1->fecha;}
-             }
-        }if($day1==null)
-        {$day1="";}
-
-        /**********************/
-        foreach ($diadosmenor as $d2){
-             if($d2->fecha!=null)
-             {$day2=$d2->fecha;}
-        }if($day2==null)
-        {
-            foreach ($diadosmedio as $d2){
-             if($d2->fecha!=null)
-             {$day2=$d2->fecha;}
-             }
-        }if($day2==null)
-        {
-            foreach ($diadosmayor as $d2){
-             if($d2->fecha!=null)
-             {$day2=$d2->fecha;}
-             }
-        }if($day2==null)
-        {$day2="";}
-        /**********************/
-        foreach ($diatresmenor as $d3){
-             if($d3->fecha!=null)
-             {$day3=$d3->fecha;}
-        }if($day3==null)
-        {
-            foreach ($diatresmedio as $d3){
-             if($d3->fecha!=null)
-             {$day3=$d3->fecha;}
-             }
-        }if($day3==null)
-        {
-            foreach ($diatresmayor as $d3){
-             if($d3->fecha!=null)
-             {$day3=$d3->fecha;}
-             }
-        }if($day3==null)
-        {$day3="";}
-        /**********************/
-        foreach ($diacuatromenor as $d4){
-             if($d4->fecha!=null)
-             {$day4=$d4->fecha;}
-        }if($day4==null)
-        {
-            foreach ($diacuatromedio as $d4){
-             if($d4->fecha!=null)
-             {$day4=$d4->fecha;}
-             }
-        }if($day4==null)
-        {
-            foreach ($diacuatromayor as $d4){
-             if($d4->fecha!=null)
-             {$day4=$d4->fecha;}
-             }
-        }if($day4==null)
-        {$day4="";}
-        /**********************/
-        foreach ($diacincomenor as $d5){
-             if($d5->fecha!=null)
-             {$day5=$d5->fecha;}
-        }if($day5==null)
-        {
-            foreach ($diacincomedio as $d5){
-             if($d5->fecha!=null)
-             {$day5=$d5->fecha;}
-             }
-        }if($day5==null)
-        {
-            foreach ($diacincomayor as $d5){
-             if($d5->fecha!=null)
-             {$day5=$d5->fecha;}
-             }
-        }if($day5==null)
-        {$day5="";}
-
-        $day1 = substr($day1, 0, -9);
-        $day2 = substr($day2, 0, -9);
-        $day3 = substr($day3, 0, -9);
-        $day4 = substr($day4, 0, -9);
-        $day5 = substr($day5, 0, -9);
-
+        $tdias = date("t");
         $dataembarques='{';
-        $dataembarques .= 'labels : ["'.$day5.'","'.$day4.'","'.$day3.'","'.$day2.'","'.$day1.'"],';
-        
-        $d1menor=null;
-        foreach ($diaunomenor as $d1){
-             if($d1->diaunomenor!=null)
-             {$d1menor=$d1->diaunomenor;}
-        }if($d1menor==null)
-        {$d1menor=0;}  
-        $d2menor=null;
-        foreach ($diadosmenor as $d2){
-             if($d2->diadosmenor!=null)
-             {$d2menor=$d2->diadosmenor;}
-        }if($d2menor==null)
-        {$d2menor=0;}  
-        $d3menor=null;
-        foreach ($diatresmenor as $d3){
-             if($d3->diatresmenor!=null)
-             {$d3menor=$d3->diatresmenor;}
-        }if($d3menor==null)
-        {$d3menor=0;}  
-        $d4menor=null;
-        foreach ($diacuatromenor as $d4){
-             if($d4->diacuatromenor!=null)
-             {$d4menor=$d4->diacuatromenor;}
-        }if($d4menor==null)
-        {$d4menor=0;}   
-        $d5menor=null;
-        foreach ($diacincomenor as $d5){
-             if($d5->diacincomenor!=null)
-             {$d5menor=$d5->diacincomenor;}
-        }if($d5menor==null)
-        {$d5menor=0;}   
+        $dataembarques .= 'labels : [';
 
-        /**************************************/
-        $d1medio=null;
-        foreach ($diaunomedio as $d1){
-             if($d1->diaunomedio!=null)
-             {$d1medio=$d1->diaunomedio;}
-        }if($d1medio==null)
-        {$d1menor=0;}  
-        $d2medio=null;
-        foreach ($diadosmedio as $d2){
-             if($d2->diadosmedio!=null)
-             {$d2medio=$d2->diadosmedio;}
-        }if($d2medio==null)
-        {$d2medio=0;}  
-        $d3medio=null;
-        foreach ($diatresmedio as $d3){
-             if($d3->diatresmedio!=null)
-             {$d3medio=$d3->diatresmedio;}
-        }if($d3medio==null)
-        {$d3medio=0;}  
-        $d4medio=null;
-        foreach ($diacuatromedio as $d4){
-             if($d4->diacuatromedio!=null)
-             {$d4medio=$d4->diacuatromedio;}
-        }if($d4medio==null)
-        {$d4medio=0;}   
-        $d5medio=null;
-        foreach ($diacincomedio as $d5){
-             if($d5->diacincomedio!=null)
-             {$d5medio=$d5->diacincomedio;}
-        }if($d5medio==null)
-        {$d5medio=0;}   
-        /**************************************/
-        $d1mayor=null;
-        foreach ($diaunomayor as $d1){
-             if($d1->diaunomayor!=null)
-             {$d1mayor=$d1->diaunomayor;}
-        }if($d1mayor==null)
-        {$d1mayor=0;}  
-        $d2mayor=null; 
-        foreach ($diadosmayor as $d2){
-             if($d2->diadosmayor!=null)
-             {$d2mayor=$d2->diadosmayor;}
-        }if($d2mayor==null)
-        {$d2mayor=0;}  
-        $d3mayor=null;
-        foreach ($diatresmayor as $d3){
-             if($d3->diatresmayor!=null)
-             {$d3mayor=$d3->diatresmayor;}
-        }if($d3mayor==null)
-        {$d3mayor=0;}  
-        $d4mayor=null;
-        foreach ($diacuatromayor as $d4){
-             if($d4->diacuatromayor!=null)
-             {$d4mayor=$d4->diacuatromayor;}
-        }if($d4mayor==null)
-        {$d4mayor=0;}  
-        $d5mayor=null;
-        foreach ($diacincomayor as $d5){
-             if($d5->diacincomayor!=null)
-             {$d5mayor=$d5->diacincomayor;}
-        }if($d5mayor==null)
-        {$d5mayor=0;}   
+        for($i=1;$i<=$tdias;$i++)
+        {
+            $dataembarques .='"';
+            $dataembarques .= $i;
+            $dataembarques .='",';
+        }
 
+        $dataembarques = substr($dataembarques, 0, -1);
+        $dataembarques .='],';
+       
+        //$dataembarques='{';
+        //$dataembarques .= 'labels : ["'.$day5.'","'.$day4.'","'.$day3.'","'.$day2.'","'.$day1.'"],';
         
+     
+
+
+
+        $embarquesMenores=array();
+        $embarquesMedios=array();
+        $embarquesMayores=array();
+        $tdias = date("t");
+        $mes = date("m");
+        $total=0;
+        $b=0;
+
+        for($i=1;$i<=$tdias;$i++)
+        {            
+            $total=0;   
+            $embarquesmenor = "select count(*) as total from embarques where day(fecha)=".$i." and Month(fecha)=".$mes." and peso<100";
+            $embarquesmenor = DB::select(DB::raw($embarquesmenor));
+            $total=0;
+            foreach ($embarquesmenor as $t){
+             if($t->total!=null)
+             {
+               $b==1;
+               $total=$t->total;
+             }
+            }
+            
+            $embarquesMenores[$i]=$t->total;
+
+        }
+
+        for($i=1;$i<=$tdias;$i++)
+        {            
+            $total=0;   
+            $embarquesmedio = "select count(*) as total from embarques where day(fecha)=".$i." and Month(fecha)=".$mes." and peso>=100 and peso<1000";
+            $embarquesmedio = DB::select(DB::raw($embarquesmedio));
+            $total=0;
+            foreach ($embarquesmedio as $t){
+             if($t->total!=null)
+             {
+               $b==1;
+               $total=$t->total;
+             }
+            }
+            
+            $embarquesMedios[$i]=$t->total;
+
+        }
+
+        for($i=1;$i<=$tdias;$i++)
+        {            
+            $total=0;   
+            $embarquesMayore= "select count(*) as total from embarques where day(fecha)=".$i." and Month(fecha)=".$mes." and peso>=1000";
+            $embarquesMayore = DB::select(DB::raw($embarquesMayore));
+            $total=0;
+            foreach ($embarquesMayore as $t){
+             if($t->total!=null)
+             {
+               $b==1;
+               $total=$t->total;
+             }
+            }
+            
+            $embarquesMayores[$i]=$t->total;
+
+        }
+
+
+        $diasmenores="";
+        $diasmedios="";
+        $diasmayores="";
+
+        for($i=1;$i<=$tdias;$i++)
+        {
+            $diasmenores .= $embarquesMenores[$i].",";
+            $diasmedios .= $embarquesMedios[$i].",";
+            $diasmayores .= $embarquesMayores[$i].",";
+        }
+
+        $diasmenores = substr($diasmenores, 0, -1);
+        $diasmedios = substr($diasmedios, 0, -1);
+        $diasmayores = substr($diasmayores, 0, -1);
+
         $dataembarques .= 'datasets : [
                 {
                     label: "My First dataset",
@@ -280,7 +131,7 @@ class dashboardcontroller extends Controller
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(220,220,220,1ss)",
-                    data : ['.$d5menor.','.$d4menor.','.$d3menor.','.$d2menor.','.$d1menor.']
+                    data : ['.$diasmenores.']
                 },';
 
         $dataembarques .= '
@@ -292,7 +143,7 @@ class dashboardcontroller extends Controller
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(151,187,205,1)",
-                    data : ['.$d5medio.','.$d4medio.','.$d3medio.','.$d2medio.','.$d1medio.']
+                    data : ['.$diasmedios.']
         },';
 
          $dataembarques .= '
@@ -304,7 +155,7 @@ class dashboardcontroller extends Controller
                     pointStrokeColor : "#fff",
                     pointHighlightFill : "#fff",
                     pointHighlightStroke : "rgba(151,187,205,1)",
-                    data : ['.$d5mayor.','.$d4mayor.','.$d3mayor.','.$d2mayor.','.$d1mayor.']
+                    data : ['.$diasmayores.']
                 }
             ]
 

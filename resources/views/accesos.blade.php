@@ -215,7 +215,5 @@
                $('#activotag').val(activo);
                $('#empretag').val(empresa);
                
-
-               
         });
 </script>
